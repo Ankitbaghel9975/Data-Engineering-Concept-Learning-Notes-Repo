@@ -1,0 +1,2759 @@
+# SQL – Complete Beginner to Advanced Notes
+
+**Category:** Data Engineering  
+**Level:** Beginner → Intermediate → Advanced  
+**Language:** English + Hinglish  
+**Purpose:** Learning, practical implementation, interview preparation and one-minute revision.
+
+---
+
+# Table of Contents
+
+1. Introduction to SQL
+2. Database Fundamentals
+3. SQL Commands and Categories
+4. Creating a Database and Tables
+5. SQL Data Types
+6. Constraints
+7. INSERT Statement
+8. SELECT Statement
+9. WHERE Clause
+10. Operators
+11. ORDER BY
+12. DISTINCT
+13. LIMIT and OFFSET
+14. UPDATE Statement
+15. DELETE Statement
+16. ALTER and DROP
+17. Aggregate Functions
+18. GROUP BY
+19. HAVING
+20. SQL Joins
+21. Subqueries
+22. CASE Statement
+23. NULL Handling
+24. String Functions
+25. Date and Time Functions
+26. Mathematical Functions
+27. Set Operators
+28. Common Table Expressions (CTEs)
+29. Views
+30. Indexes
+31. Primary Key and Foreign Key
+32. Normalization
+33. Window Functions
+34. Ranking Functions
+35. Advanced SQL Queries
+36. Transactions
+37. ACID Properties
+38. Stored Procedures
+39. Functions and Triggers
+40. Query Execution and Optimization
+41. SQL Performance Tuning
+42. SQL for Data Engineering
+43. Incremental Data Loading
+44. Slowly Changing Dimensions
+45. SQL Projects
+46. Interview Questions
+47. Final Revision Checklist
+
+---
+
+# PHASE 1 – SQL FUNDAMENTALS
+
+# 1. Introduction to SQL
+
+## What is SQL?
+
+SQL stands for Structured Query Language.
+
+It is used to communicate with relational database management systems (RDBMS) to store, retrieve, update and manage data.
+
+Popular SQL databases:
+
+- MySQL
+- PostgreSQL
+- Oracle Database
+- Microsoft SQL Server
+- SQLite
+
+## Why do we use SQL in Data Engineering?
+
+Data Engineers use SQL to:
+
+1. Retrieve data from databases.
+2. Filter required records.
+3. Join multiple tables.
+4. Transform raw data.
+5. Aggregate large datasets.
+6. Validate data quality.
+7. Load data into data warehouses.
+8. Build analytical reports.
+9. Perform incremental data processing.
+
+## Example
+
+Suppose we have an employees table.
+
+| emp_id | name | salary |
+|---|---|---:|
+| 1 | Ankit | 15000 |
+| 2 | Rahul | 20000 |
+| 3 | Amit | 18000 |
+
+Query:
+
+```sql
+SELECT *
+FROM employees;
+```
+
+Output: All records from the employees table.
+
+**Hinglish:** SQL ek language hai jiska use hum database ke andar stored data ko retrieve, insert, update, delete aur analyze karne ke liye karte hain.
+
+## One-Minute Revision
+
+- SQL = Structured Query Language.
+- Used to communicate with relational databases.
+- Retrieves and modifies data.
+- Important for Data Engineering and Analytics.
+- Works with tables, rows and columns.
+
+**One-line summary:** SQL is the primary language used to manage and analyze data stored in relational databases.
+
+---
+
+# 2. Database Fundamentals
+
+## What is a Database?
+
+A database is an organized collection of data.
+
+Example: A company stores employee information in a database.
+
+## What is DBMS?
+
+DBMS stands for Database Management System.
+
+It is software used to create, store, retrieve and manage databases.
+
+Examples:
+
+- MySQL
+- PostgreSQL
+- Oracle
+
+## What is RDBMS?
+
+RDBMS stands for Relational Database Management System.
+
+It stores data in tables and connects related tables using keys.
+
+## Database Structure
+
+```text
+Database
+   |
+   |---- Employees Table
+   |       |---- Rows
+   |       |---- Columns
+   |
+   |---- Departments Table
+           |---- Rows
+           |---- Columns
+```
+
+## Important Terms
+
+| Term | Meaning |
+|---|---|
+| Database | Collection of organized data |
+| Table | Data organized in rows and columns |
+| Row | Single record |
+| Column | Attribute of a record |
+| Schema | Logical structure of database objects |
+| Primary Key | Uniquely identifies a row |
+| Foreign Key | References a key in another table |
+| Query | SQL instruction |
+
+---
+
+# 3. SQL Commands and Categories
+
+SQL commands are commonly divided into five categories.
+
+## 1. DDL – Data Definition Language
+
+Used to define or change database structures.
+
+Commands:
+
+- CREATE
+- ALTER
+- DROP
+- TRUNCATE
+
+Example:
+
+```sql
+CREATE TABLE employees (
+    emp_id INT,
+    name VARCHAR(100)
+);
+```
+
+## 2. DML – Data Manipulation Language
+
+Used to modify table data.
+
+Commands:
+
+- INSERT
+- UPDATE
+- DELETE
+
+Example:
+
+```sql
+INSERT INTO employees
+VALUES (1, 'Ankit');
+```
+
+## 3. DQL – Data Query Language
+
+Used to retrieve data.
+
+Command:
+
+- SELECT
+
+Example:
+
+```sql
+SELECT * FROM employees;
+```
+
+## 4. DCL – Data Control Language
+
+Used to control permissions.
+
+Commands:
+
+- GRANT
+- REVOKE
+
+## 5. TCL – Transaction Control Language
+
+Used to manage transactions.
+
+Commands:
+
+- COMMIT
+- ROLLBACK
+- SAVEPOINT
+
+### Quick Revision
+
+| Category | Purpose | Commands |
+|---|---|---|
+| DDL | Structure | CREATE, ALTER, DROP |
+| DML | Modify data | INSERT, UPDATE, DELETE |
+| DQL | Retrieve data | SELECT |
+| DCL | Permissions | GRANT, REVOKE |
+| TCL | Transactions | COMMIT, ROLLBACK |
+
+---
+
+# 4. Creating a Database and Tables
+
+## Create Database
+
+```sql
+CREATE DATABASE company_db;
+```
+
+Select the database in MySQL:
+
+```sql
+USE company_db;
+```
+
+PostgreSQL users generally connect to the desired database instead of using `USE`.
+
+## Create Table
+
+```sql
+CREATE TABLE employees (
+    emp_id INT,
+    name VARCHAR(100),
+    age INT,
+    salary DECIMAL(10,2),
+    department VARCHAR(50)
+);
+```
+
+## Insert Sample Data
+
+```sql
+INSERT INTO employees
+(emp_id, name, age, salary, department)
+VALUES
+(1, 'Ankit', 22, 15000, 'IT'),
+(2, 'Rahul', 25, 20000, 'HR'),
+(3, 'Amit', 24, 18000, 'IT'),
+(4, 'Priya', 26, 25000, 'Finance'),
+(5, 'Neha', 23, 22000, 'HR');
+```
+
+## Departments Table
+
+```sql
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(100)
+);
+```
+
+```sql
+INSERT INTO departments
+VALUES
+(10, 'IT'),
+(20, 'HR'),
+(30, 'Finance'),
+(40, 'Marketing');
+```
+
+## Employees with Department IDs
+
+For join practice, use this version of the employee table:
+
+```sql
+CREATE TABLE employee_details (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    salary DECIMAL(10,2),
+    dept_id INT
+);
+```
+
+```sql
+INSERT INTO employee_details
+VALUES
+(1, 'Ankit', 15000, 10),
+(2, 'Rahul', 20000, 20),
+(3, 'Amit', 18000, 10),
+(4, 'Priya', 25000, 30),
+(5, 'Neha', 22000, 20),
+(6, 'Karan', 17000, NULL);
+```
+
+---
+
+# 5. SQL Data Types
+
+Data types define what kind of value a column can store.
+
+| Data Type | Purpose | Example |
+|---|---|---|
+| INT | Integer | 100 |
+| BIGINT | Large integer | 9876543210 |
+| DECIMAL | Exact decimal | 15000.50 |
+| FLOAT | Approximate decimal | 10.5 |
+| CHAR | Fixed-length text | 'A' |
+| VARCHAR | Variable-length text | 'Ankit' |
+| TEXT | Long text | Description |
+| DATE | Date | 2026-11-18 |
+| TIME | Time | 10:30:00 |
+| TIMESTAMP | Date and time | 2026-11-18 10:30:00 |
+| BOOLEAN | True/False | TRUE |
+
+Note: Exact type names and behavior vary across database systems.
+
+---
+
+# 6. Constraints
+
+Constraints are rules applied to table columns to maintain data accuracy and integrity.
+
+## PRIMARY KEY
+
+Uniquely identifies each record and does not allow NULL values.
+
+```sql
+CREATE TABLE students (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+```
+
+## NOT NULL
+
+Prevents NULL values.
+
+```sql
+CREATE TABLE customers (
+    customer_id INT,
+    name VARCHAR(100) NOT NULL
+);
+```
+
+## UNIQUE
+
+Ensures that values in a column or combination of columns are unique.
+
+```sql
+CREATE TABLE users (
+    user_id INT PRIMARY KEY,
+    email VARCHAR(100) UNIQUE
+);
+```
+
+## CHECK
+
+Validates a condition.
+
+```sql
+CREATE TABLE employees (
+    emp_id INT,
+    salary DECIMAL(10,2) CHECK (salary >= 0)
+);
+```
+
+## DEFAULT
+
+Provides a default value.
+
+```sql
+CREATE TABLE employees (
+    emp_id INT,
+    status VARCHAR(20) DEFAULT 'ACTIVE'
+);
+```
+
+## FOREIGN KEY
+
+Connects related tables.
+
+```sql
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    dept_id INT,
+    FOREIGN KEY (dept_id)
+        REFERENCES departments(dept_id)
+);
+```
+
+---
+
+# PHASE 2 – BASIC SQL QUERIES
+
+# 7. INSERT Statement
+
+Used to add records into a table.
+
+```sql
+INSERT INTO employees
+(emp_id, name, age, salary, department)
+VALUES
+(6, 'Karan', 24, 17000, 'IT');
+```
+
+Insert multiple records:
+
+```sql
+INSERT INTO employees
+(emp_id, name, age, salary, department)
+VALUES
+(7, 'Ravi', 23, 19000, 'HR'),
+(8, 'Pooja', 25, 21000, 'Finance');
+```
+
+---
+
+# 8. SELECT Statement
+
+Used to retrieve data from a table.
+
+## Select All Columns
+
+```sql
+SELECT *
+FROM employees;
+```
+
+## Select Specific Columns
+
+```sql
+SELECT name, salary
+FROM employees;
+```
+
+## Column Aliases
+
+```sql
+SELECT
+    name AS employee_name,
+    salary AS monthly_salary
+FROM employees;
+```
+
+## Calculated Columns
+
+```sql
+SELECT
+    name,
+    salary,
+    salary * 12 AS annual_salary
+FROM employees;
+```
+
+Remember: `*` retrieves all columns. In production queries, selecting only required columns is often better.
+
+---
+
+# 9. WHERE Clause
+
+Used to filter records based on conditions.
+
+```sql
+SELECT *
+FROM employees
+WHERE salary > 18000;
+```
+
+## Multiple Conditions
+
+```sql
+SELECT *
+FROM employees
+WHERE department = 'IT'
+AND salary > 15000;
+```
+
+## OR Condition
+
+```sql
+SELECT *
+FROM employees
+WHERE department = 'IT'
+OR department = 'HR';
+```
+
+## NOT Condition
+
+```sql
+SELECT *
+FROM employees
+WHERE NOT department = 'IT';
+```
+
+---
+
+# 10. SQL Operators
+
+## Comparison Operators
+
+| Operator | Meaning |
+|---|---|
+| = | Equal |
+| != or <> | Not equal |
+| > | Greater than |
+| < | Less than |
+| >= | Greater than or equal |
+| <= | Less than or equal |
+
+## BETWEEN
+
+```sql
+SELECT *
+FROM employees
+WHERE salary BETWEEN 15000 AND 22000;
+```
+
+BETWEEN includes both boundary values.
+
+## IN
+
+```sql
+SELECT *
+FROM employees
+WHERE department IN ('IT', 'HR');
+```
+
+## NOT IN
+
+```sql
+SELECT *
+FROM employees
+WHERE department NOT IN ('IT', 'HR');
+```
+
+## LIKE
+
+Used for pattern matching.
+
+```sql
+SELECT *
+FROM employees
+WHERE name LIKE 'A%';
+```
+
+Common patterns:
+
+| Pattern | Meaning |
+|---|---|
+| 'A%' | Starts with A |
+| '%A' | Ends with A |
+| '%A%' | Contains A |
+| '_A%' | Second character is A |
+
+---
+
+# 11. ORDER BY
+
+Sorts query results.
+
+Ascending:
+
+```sql
+SELECT *
+FROM employees
+ORDER BY salary ASC;
+```
+
+Descending:
+
+```sql
+SELECT *
+FROM employees
+ORDER BY salary DESC;
+```
+
+Multiple columns:
+
+```sql
+SELECT *
+FROM employees
+ORDER BY department ASC, salary DESC;
+```
+
+---
+
+# 12. DISTINCT
+
+Returns unique values.
+
+```sql
+SELECT DISTINCT department
+FROM employees;
+```
+
+Unique combinations:
+
+```sql
+SELECT DISTINCT department, age
+FROM employees;
+```
+
+---
+
+# 13. LIMIT and OFFSET
+
+LIMIT restricts the number of returned rows in databases that support this syntax.
+
+```sql
+SELECT *
+FROM employees
+LIMIT 3;
+```
+
+OFFSET skips a number of rows.
+
+```sql
+SELECT *
+FROM employees
+LIMIT 3 OFFSET 2;
+```
+
+For SQL Server, use `TOP` or `OFFSET ... FETCH` depending on the query.
+
+---
+
+# 14. UPDATE Statement
+
+Used to modify existing records.
+
+```sql
+UPDATE employees
+SET salary = 25000
+WHERE emp_id = 1;
+```
+
+Update multiple columns:
+
+```sql
+UPDATE employees
+SET salary = 28000,
+    department = 'Finance'
+WHERE emp_id = 1;
+```
+
+Important: Always check the WHERE condition before executing UPDATE.
+
+Without WHERE, every row can be updated.
+
+---
+
+# 15. DELETE Statement
+
+Used to remove records.
+
+```sql
+DELETE FROM employees
+WHERE emp_id = 5;
+```
+
+Delete all records:
+
+```sql
+DELETE FROM employees;
+```
+
+Important distinction:
+
+- DELETE removes rows.
+- TRUNCATE removes all rows using a database-specific table operation.
+- DROP removes the table structure itself.
+
+Transaction and rollback behavior for these operations varies by database.
+
+---
+
+# 16. ALTER and DROP
+
+## ALTER TABLE
+
+Add a column:
+
+```sql
+ALTER TABLE employees
+ADD email VARCHAR(100);
+```
+
+Change a column's data type: syntax varies by database.
+
+PostgreSQL example:
+
+```sql
+ALTER TABLE employees
+ALTER COLUMN salary TYPE NUMERIC(12,2);
+```
+
+## DROP TABLE
+
+```sql
+DROP TABLE employees;
+```
+
+## TRUNCATE TABLE
+
+```sql
+TRUNCATE TABLE employees;
+```
+
+Use destructive statements carefully, especially in production.
+
+---
+
+# PHASE 3 – AGGREGATION AND GROUPING
+
+# 17. Aggregate Functions
+
+Aggregate functions calculate results from multiple rows.
+
+## COUNT()
+
+Counts records.
+
+```sql
+SELECT COUNT(*)
+FROM employees;
+```
+
+## SUM()
+
+Calculates total.
+
+```sql
+SELECT SUM(salary)
+FROM employees;
+```
+
+## AVG()
+
+Calculates average.
+
+```sql
+SELECT AVG(salary)
+FROM employees;
+```
+
+## MAX()
+
+Finds maximum value.
+
+```sql
+SELECT MAX(salary)
+FROM employees;
+```
+
+## MIN()
+
+Finds minimum value.
+
+```sql
+SELECT MIN(salary)
+FROM employees;
+```
+
+### Important COUNT Difference
+
+```sql
+SELECT COUNT(*)
+FROM employees;
+```
+
+Counts rows.
+
+```sql
+SELECT COUNT(dept_id)
+FROM employees;
+```
+
+Counts non-NULL values in `dept_id`.
+
+```sql
+SELECT COUNT(DISTINCT dept_id)
+FROM employees;
+```
+
+Counts distinct non-NULL department IDs.
+
+---
+
+# 18. GROUP BY
+
+GROUP BY groups rows having common values.
+
+Example: Count employees in each department.
+
+```sql
+SELECT
+    department,
+    COUNT(*) AS employee_count
+FROM employees
+GROUP BY department;
+```
+
+Average salary by department:
+
+```sql
+SELECT
+    department,
+    AVG(salary) AS average_salary
+FROM employees
+GROUP BY department;
+```
+
+Multiple columns:
+
+```sql
+SELECT
+    department,
+    age,
+    COUNT(*) AS total
+FROM employees
+GROUP BY department, age;
+```
+
+**Hinglish:** GROUP BY same values wale records ko ek group mein combine karta hai, jisse hum COUNT, SUM, AVG jaise functions apply kar sakte hain.
+
+---
+
+# 19. HAVING
+
+HAVING filters grouped results.
+
+Example: Departments having more than two employees.
+
+```sql
+SELECT
+    department,
+    COUNT(*) AS total_employees
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 2;
+```
+
+## WHERE vs HAVING
+
+| WHERE | HAVING |
+|---|---|
+| Filters individual rows | Filters grouped results |
+| Applied before grouping | Applied after grouping |
+| Generally used without aggregate conditions | Commonly used with aggregate conditions |
+
+Example:
+
+```sql
+SELECT
+    department,
+    AVG(salary) AS average_salary
+FROM employees
+WHERE salary > 15000
+GROUP BY department
+HAVING AVG(salary) > 18000;
+```
+
+---
+
+# PHASE 4 – SQL JOINS
+
+# 20. SQL Joins
+
+Joins combine data from multiple tables using related columns.
+
+Consider two tables:
+
+### Employees
+
+| emp_id | name | dept_id |
+|---|---|---|
+| 1 | Ankit | 10 |
+| 2 | Rahul | 20 |
+| 3 | Amit | 10 |
+| 4 | Priya | 30 |
+| 5 | Karan | NULL |
+
+### Departments
+
+| dept_id | dept_name |
+|---|---|
+| 10 | IT |
+| 20 | HR |
+| 30 | Finance |
+| 40 | Marketing |
+
+## 1. INNER JOIN
+
+Returns matching records from both tables.
+
+```sql
+SELECT
+    e.name,
+    d.dept_name
+FROM employees e
+INNER JOIN departments d
+    ON e.dept_id = d.dept_id;
+```
+
+Result: Employees with matching department IDs.
+
+## 2. LEFT JOIN
+
+Returns all records from the left table and matching records from the right table.
+
+```sql
+SELECT
+    e.name,
+    d.dept_name
+FROM employees e
+LEFT JOIN departments d
+    ON e.dept_id = d.dept_id;
+```
+
+Employees without matching departments still appear. Their department name will be NULL.
+
+## 3. RIGHT JOIN
+
+Returns all records from the right table and matching records from the left table.
+
+```sql
+SELECT
+    e.name,
+    d.dept_name
+FROM employees e
+RIGHT JOIN departments d
+    ON e.dept_id = d.dept_id;
+```
+
+All departments appear, including departments without employees.
+
+## 4. FULL OUTER JOIN
+
+Returns matching and non-matching rows from both tables.
+
+```sql
+SELECT
+    e.name,
+    d.dept_name
+FROM employees e
+FULL OUTER JOIN departments d
+    ON e.dept_id = d.dept_id;
+```
+
+Note: MySQL does not directly support FULL OUTER JOIN; it can be emulated using LEFT JOIN and RIGHT JOIN with UNION.
+
+## 5. CROSS JOIN
+
+Returns every possible combination of rows from both tables.
+
+```sql
+SELECT
+    e.name,
+    d.dept_name
+FROM employees e
+CROSS JOIN departments d;
+```
+
+## 6. SELF JOIN
+
+Joins a table with itself.
+
+Example: Employees and their managers.
+
+```sql
+SELECT
+    e.name AS employee,
+    m.name AS manager
+FROM employees e
+LEFT JOIN employees m
+    ON e.manager_id = m.emp_id;
+```
+
+This example assumes a `manager_id` column exists.
+
+## Join Summary
+
+| Join | Result |
+|---|---|
+| INNER JOIN | Matching rows |
+| LEFT JOIN | All left + matching right |
+| RIGHT JOIN | All right + matching left |
+| FULL OUTER JOIN | All rows from both sides |
+| CROSS JOIN | Cartesian combinations |
+| SELF JOIN | Table joined with itself |
+
+### One-Minute Revision
+
+- Joins combine related tables.
+- The ON condition specifies how rows match.
+- LEFT JOIN preserves every row from the left table.
+- INNER JOIN keeps matching rows.
+- Missing matches can produce NULL values.
+
+---
+
+# PHASE 5 – SUBQUERIES AND CONDITIONAL LOGIC
+
+# 21. Subqueries
+
+A subquery is a query inside another SQL query.
+
+## Single-Row Subquery
+
+Find employees earning more than the average salary.
+
+```sql
+SELECT *
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+
+## Multiple-Row Subquery
+
+```sql
+SELECT *
+FROM employees
+WHERE dept_id IN (
+    SELECT dept_id
+    FROM departments
+    WHERE dept_name IN ('IT', 'HR')
+);
+```
+
+## Correlated Subquery
+
+A correlated subquery refers to a column from the outer query.
+
+Find employees earning more than their department's average salary:
+
+```sql
+SELECT *
+FROM employees e
+WHERE salary > (
+    SELECT AVG(e2.salary)
+    FROM employees e2
+    WHERE e2.dept_id = e.dept_id
+);
+```
+
+## EXISTS
+
+Checks whether a subquery returns at least one row.
+
+```sql
+SELECT *
+FROM departments d
+WHERE EXISTS (
+    SELECT 1
+    FROM employees e
+    WHERE e.dept_id = d.dept_id
+);
+```
+
+## NOT EXISTS
+
+Find departments without employees.
+
+```sql
+SELECT *
+FROM departments d
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM employees e
+    WHERE e.dept_id = d.dept_id
+);
+```
+
+---
+
+# 22. CASE Statement
+
+CASE applies conditional logic inside SQL queries.
+
+```sql
+SELECT
+    name,
+    salary,
+    CASE
+        WHEN salary >= 25000 THEN 'High'
+        WHEN salary >= 18000 THEN 'Medium'
+        ELSE 'Low'
+    END AS salary_category
+FROM employees;
+```
+
+CASE can be used in:
+
+- SELECT
+- ORDER BY
+- GROUP BY expressions
+- UPDATE
+- Aggregations
+
+Example:
+
+```sql
+SELECT
+    SUM(
+        CASE
+            WHEN department = 'IT' THEN 1
+            ELSE 0
+        END
+    ) AS it_employees
+FROM employees;
+```
+
+---
+
+# 23. NULL Handling
+
+NULL represents missing or unknown data.
+
+Important: NULL is not equal to zero or an empty string.
+
+## IS NULL
+
+```sql
+SELECT *
+FROM employees
+WHERE dept_id IS NULL;
+```
+
+## IS NOT NULL
+
+```sql
+SELECT *
+FROM employees
+WHERE dept_id IS NOT NULL;
+```
+
+## COALESCE
+
+Returns the first non-NULL value.
+
+```sql
+SELECT
+    name,
+    COALESCE(dept_id, 0) AS department_id
+FROM employees;
+```
+
+## NULLIF
+
+Returns NULL if two expressions are equal.
+
+```sql
+SELECT NULLIF(10, 10);
+```
+
+## IFNULL
+
+MySQL-specific function.
+
+```sql
+SELECT IFNULL(dept_id, 0)
+FROM employees;
+```
+
+SQL Server provides `ISNULL`; PostgreSQL and standard SQL support `COALESCE`.
+
+---
+
+# PHASE 6 – SQL FUNCTIONS
+
+# 24. String Functions
+
+| Function | Purpose |
+|---|---|
+| UPPER() | Convert to uppercase |
+| LOWER() | Convert to lowercase |
+| LENGTH() | Return string length |
+| TRIM() | Remove surrounding spaces |
+| SUBSTRING() | Extract part of a string |
+| REPLACE() | Replace text |
+| CONCAT() | Combine strings |
+
+Examples:
+
+```sql
+SELECT UPPER(name)
+FROM employees;
+```
+
+```sql
+SELECT LOWER(name)
+FROM employees;
+```
+
+```sql
+SELECT LENGTH(name)
+FROM employees;
+```
+
+```sql
+SELECT CONCAT(name, ' - Employee')
+FROM employees;
+```
+
+String function names and behavior can vary slightly across databases.
+
+---
+
+# 25. Date and Time Functions
+
+Get current date:
+
+```sql
+SELECT CURRENT_DATE;
+```
+
+Get current timestamp:
+
+```sql
+SELECT CURRENT_TIMESTAMP;
+```
+
+Extract year:
+
+```sql
+SELECT EXTRACT(YEAR FROM CURRENT_DATE);
+```
+
+Date arithmetic is database-specific.
+
+Example in PostgreSQL:
+
+```sql
+SELECT CURRENT_DATE + INTERVAL '7 days';
+```
+
+Important concepts:
+
+- DATE
+- TIME
+- TIMESTAMP
+- Time zones
+- Date difference
+- Date extraction
+- Date formatting
+
+Data Engineering use:
+
+- Daily partitions
+- Monthly reports
+- Incremental data extraction
+- Event timestamps
+- Data freshness checks
+
+---
+
+# 26. Mathematical Functions
+
+Examples:
+
+```sql
+SELECT ABS(-100);
+```
+
+```sql
+SELECT ROUND(125.678, 2);
+```
+
+```sql
+SELECT CEIL(10.2);
+```
+
+```sql
+SELECT FLOOR(10.8);
+```
+
+```sql
+SELECT POWER(2, 3);
+```
+
+---
+
+# 27. Set Operators
+
+Set operators combine results from multiple SELECT statements.
+
+## UNION
+
+Combines results and removes duplicates.
+
+```sql
+SELECT name FROM employees
+UNION
+SELECT name FROM customers;
+```
+
+## UNION ALL
+
+Combines results and retains duplicates.
+
+```sql
+SELECT name FROM employees
+UNION ALL
+SELECT name FROM customers;
+```
+
+## INTERSECT
+
+Returns common rows.
+
+```sql
+SELECT name FROM employees
+INTERSECT
+SELECT name FROM customers;
+```
+
+## EXCEPT
+
+Returns rows from the first query that do not appear in the second.
+
+```sql
+SELECT name FROM employees
+EXCEPT
+SELECT name FROM customers;
+```
+
+Support for INTERSECT and EXCEPT depends on the database version. Oracle commonly uses MINUS for the equivalent of EXCEPT.
+
+Important: Both queries must return the same number of compatible columns.
+
+---
+
+# PHASE 7 – ADVANCED SQL
+
+# 28. Common Table Expressions (CTEs)
+
+A CTE is a named temporary result set available within a single SQL statement.
+
+Syntax:
+
+```sql
+WITH cte_name AS (
+    SELECT ...
+)
+SELECT *
+FROM cte_name;
+```
+
+Example: Find employees earning more than the average salary.
+
+```sql
+WITH average_salary AS (
+    SELECT AVG(salary) AS avg_salary
+    FROM employees
+)
+SELECT *
+FROM employees
+WHERE salary > (
+    SELECT avg_salary
+    FROM average_salary
+);
+```
+
+## Multiple CTEs
+
+```sql
+WITH department_count AS (
+    SELECT
+        dept_id,
+        COUNT(*) AS total_employees
+    FROM employees
+    GROUP BY dept_id
+),
+high_count AS (
+    SELECT *
+    FROM department_count
+    WHERE total_employees > 1
+)
+SELECT *
+FROM high_count;
+```
+
+## Recursive CTE
+
+Used for hierarchical or recursive data.
+
+```sql
+WITH RECURSIVE numbers AS (
+    SELECT 1 AS n
+
+    UNION ALL
+
+    SELECT n + 1
+    FROM numbers
+    WHERE n < 5
+)
+SELECT *
+FROM numbers;
+```
+
+Recursive CTE syntax varies by database. SQL Server uses `WITH` without the `RECURSIVE` keyword.
+
+---
+
+# 29. Views
+
+A view is a saved SQL query that behaves like a virtual table.
+
+```sql
+CREATE VIEW high_salary_employees AS
+SELECT *
+FROM employees
+WHERE salary > 20000;
+```
+
+Use the view:
+
+```sql
+SELECT *
+FROM high_salary_employees;
+```
+
+Delete a view:
+
+```sql
+DROP VIEW high_salary_employees;
+```
+
+## Materialized View
+
+A materialized view stores query results physically and generally needs refreshing.
+
+Support and refresh syntax vary by database.
+
+### View vs Materialized View
+
+| View | Materialized View |
+|---|---|
+| Stores query definition | Stores query result |
+| Usually calculates when queried | Reads stored result |
+| Reflects underlying data according to query behavior | Can become stale until refreshed |
+| Uses no separate result storage in a normal view | Requires storage |
+
+---
+
+# 30. Indexes
+
+An index helps the database locate records more efficiently.
+
+Example:
+
+```sql
+CREATE INDEX idx_employee_salary
+ON employees(salary);
+```
+
+Composite index:
+
+```sql
+CREATE INDEX idx_department_salary
+ON employees(dept_id, salary);
+```
+
+Delete index syntax varies by database.
+
+PostgreSQL:
+
+```sql
+DROP INDEX idx_employee_salary;
+```
+
+## Types of Indexes
+
+Common concepts:
+
+- B-tree index
+- Hash index
+- Unique index
+- Composite index
+- Clustered index
+- Non-clustered index
+- Partial or filtered index
+
+Availability and behavior differ across database systems.
+
+## Advantages
+
+- Can speed up filtering.
+- Can improve join performance.
+- Can help sorting and lookup operations.
+
+## Disadvantages
+
+- Requires storage.
+- Can slow INSERT, UPDATE and DELETE.
+- Needs maintenance.
+- Too many indexes can reduce performance.
+
+---
+
+# 31. Primary Key and Foreign Key
+
+## Primary Key
+
+Uniquely identifies a row.
+
+```sql
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(100)
+);
+```
+
+## Foreign Key
+
+References a key in another table.
+
+```sql
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    dept_id INT,
+    FOREIGN KEY (dept_id)
+        REFERENCES departments(dept_id)
+);
+```
+
+Relationship:
+
+```text
+Departments
+------------
+dept_id (PK)
+dept_name
+     |
+     | 1-to-many
+     |
+Employees
+---------
+emp_id (PK)
+name
+dept_id (FK)
+```
+
+## Types of Relationships
+
+1. One-to-One
+2. One-to-Many
+3. Many-to-Many
+
+A many-to-many relationship is commonly implemented using a junction table.
+
+---
+
+# 32. Normalization
+
+Normalization organizes relational tables to reduce unnecessary duplication and improve data integrity.
+
+## First Normal Form (1NF)
+
+- Each column contains atomic values.
+- Avoid repeating groups.
+
+## Second Normal Form (2NF)
+
+- Must satisfy 1NF.
+- Non-key attributes must depend on the whole candidate key, not just part of a composite candidate key.
+
+## Third Normal Form (3NF)
+
+- Must satisfy 2NF.
+- Non-key attributes should not depend transitively on candidate keys.
+
+## Example
+
+Instead of storing department name repeatedly in employee records, store departments separately and reference them using `dept_id`.
+
+### Why normalization?
+
+- Reduces duplication.
+- Improves data integrity.
+- Simplifies updates.
+
+Data warehouses may also use denormalized models such as star schemas for analytical performance.
+
+---
+
+# 33. Window Functions
+
+Window functions perform calculations across related rows without collapsing them into one row per group.
+
+Syntax:
+
+```sql
+function_name() OVER (
+    PARTITION BY column
+    ORDER BY column
+)
+```
+
+## ROW_NUMBER()
+
+Assigns a unique sequential number to rows within each window.
+
+```sql
+SELECT
+    name,
+    salary,
+    ROW_NUMBER() OVER (
+        ORDER BY salary DESC
+    ) AS row_num
+FROM employees;
+```
+
+## RANK()
+
+Assigns rankings, leaving gaps after ties.
+
+```sql
+SELECT
+    name,
+    salary,
+    RANK() OVER (
+        ORDER BY salary DESC
+    ) AS salary_rank
+FROM employees;
+```
+
+## DENSE_RANK()
+
+Assigns rankings without gaps after ties.
+
+```sql
+SELECT
+    name,
+    salary,
+    DENSE_RANK() OVER (
+        ORDER BY salary DESC
+    ) AS salary_rank
+FROM employees;
+```
+
+## PARTITION BY
+
+Creates separate windows for each group.
+
+```sql
+SELECT
+    name,
+    dept_id,
+    salary,
+    RANK() OVER (
+        PARTITION BY dept_id
+        ORDER BY salary DESC
+    ) AS department_rank
+FROM employees;
+```
+
+## LAG()
+
+Accesses a value from a previous row.
+
+```sql
+SELECT
+    name,
+    salary,
+    LAG(salary) OVER (
+        ORDER BY emp_id
+    ) AS previous_salary
+FROM employees;
+```
+
+## LEAD()
+
+Accesses a value from a following row.
+
+```sql
+SELECT
+    name,
+    salary,
+    LEAD(salary) OVER (
+        ORDER BY emp_id
+    ) AS next_salary
+FROM employees;
+```
+
+## SUM() OVER()
+
+Calculates a running total.
+
+```sql
+SELECT
+    emp_id,
+    salary,
+    SUM(salary) OVER (
+        ORDER BY emp_id
+        ROWS BETWEEN UNBOUNDED PRECEDING
+        AND CURRENT ROW
+    ) AS running_total
+FROM employees;
+```
+
+## Window Function Summary
+
+| Function | Purpose |
+|---|---|
+| ROW_NUMBER() | Unique row number |
+| RANK() | Ranking with gaps |
+| DENSE_RANK() | Ranking without gaps |
+| LAG() | Previous row value |
+| LEAD() | Next row value |
+| SUM() OVER() | Running or window total |
+| AVG() OVER() | Window average |
+| COUNT() OVER() | Window count |
+
+---
+
+# PHASE 8 – IMPORTANT ADVANCED QUERIES
+
+# 34. Frequently Asked SQL Problems
+
+Assume the employees table contains:
+
+```text
+employees
+----------
+emp_id
+name
+salary
+dept_id
+```
+
+## 1. Find Second Highest Salary
+
+```sql
+SELECT MAX(salary) AS second_highest_salary
+FROM employees
+WHERE salary < (
+    SELECT MAX(salary)
+    FROM employees
+);
+```
+
+This returns the second-highest distinct salary.
+
+## 2. Find Third Highest Distinct Salary
+
+```sql
+SELECT DISTINCT salary
+FROM employees
+ORDER BY salary DESC
+OFFSET 2 ROWS
+FETCH NEXT 1 ROW ONLY;
+```
+
+Syntax above works in SQL Server and PostgreSQL. MySQL can use `LIMIT 1 OFFSET 2`.
+
+## 3. Find Nth Highest Salary
+
+```sql
+WITH ranked_salary AS (
+    SELECT
+        salary,
+        DENSE_RANK() OVER (
+            ORDER BY salary DESC
+        ) AS salary_rank
+    FROM employees
+)
+SELECT DISTINCT salary
+FROM ranked_salary
+WHERE salary_rank = 3;
+```
+
+Replace `3` with the required rank.
+
+## 4. Find Duplicate Records
+
+```sql
+SELECT
+    name,
+    COUNT(*) AS total
+FROM employees
+GROUP BY name
+HAVING COUNT(*) > 1;
+```
+
+## 5. Find Employees Earning More Than Average Salary
+
+```sql
+SELECT *
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+
+## 6. Find Highest Salary in Each Department
+
+```sql
+SELECT
+    dept_id,
+    MAX(salary) AS highest_salary
+FROM employees
+GROUP BY dept_id;
+```
+
+## 7. Find Employee with Highest Salary in Each Department
+
+```sql
+WITH ranked AS (
+    SELECT
+        *,
+        RANK() OVER (
+            PARTITION BY dept_id
+            ORDER BY salary DESC
+        ) AS salary_rank
+    FROM employees
+)
+SELECT *
+FROM ranked
+WHERE salary_rank = 1;
+```
+
+## 8. Find Top Three Employees in Each Department
+
+```sql
+WITH ranked AS (
+    SELECT
+        *,
+        ROW_NUMBER() OVER (
+            PARTITION BY dept_id
+            ORDER BY salary DESC, emp_id
+        ) AS row_num
+    FROM employees
+)
+SELECT *
+FROM ranked
+WHERE row_num <= 3;
+```
+
+This returns at most three employees per department. Use `DENSE_RANK()` instead if you want to include all employees tied at the same salary rank.
+
+## 9. Find Departments Having More Than Five Employees
+
+```sql
+SELECT
+    dept_id,
+    COUNT(*) AS total_employees
+FROM employees
+GROUP BY dept_id
+HAVING COUNT(*) > 5;
+```
+
+## 10. Find Employees Without Departments
+
+```sql
+SELECT *
+FROM employees
+WHERE dept_id IS NULL;
+```
+
+## 11. Find Employees Without a Matching Department
+
+```sql
+SELECT e.*
+FROM employees e
+LEFT JOIN departments d
+    ON e.dept_id = d.dept_id
+WHERE d.dept_id IS NULL;
+```
+
+## 12. Delete Duplicate Rows While Keeping One
+
+Assume `emp_id` uniquely identifies each row and duplicates are defined by identical names and salaries.
+
+```sql
+WITH duplicates AS (
+    SELECT
+        emp_id,
+        ROW_NUMBER() OVER (
+            PARTITION BY name, salary
+            ORDER BY emp_id
+        ) AS row_num
+    FROM employees
+)
+DELETE FROM employees
+WHERE emp_id IN (
+    SELECT emp_id
+    FROM duplicates
+    WHERE row_num > 1
+);
+```
+
+Test the selection first with a SELECT statement and use a transaction when appropriate.
+
+## 13. Find Employees Who Joined in the Last 30 Days
+
+Assuming `joining_date` exists.
+
+PostgreSQL:
+
+```sql
+SELECT *
+FROM employees
+WHERE joining_date >= CURRENT_DATE - INTERVAL '30 days';
+```
+
+## 14. Find Maximum Salary Without LIMIT
+
+```sql
+SELECT MAX(salary)
+FROM employees;
+```
+
+## 15. Find Second Highest Salary Without LIMIT
+
+```sql
+SELECT MAX(salary)
+FROM employees
+WHERE salary < (
+    SELECT MAX(salary)
+    FROM employees
+);
+```
+
+---
+
+# PHASE 9 – TRANSACTIONS AND DATABASE MANAGEMENT
+
+# 35. Transactions
+
+A transaction is a logical unit of database operations.
+
+Example:
+
+```sql
+BEGIN;
+
+UPDATE accounts
+SET balance = balance - 1000
+WHERE account_id = 1;
+
+UPDATE accounts
+SET balance = balance + 1000
+WHERE account_id = 2;
+
+COMMIT;
+```
+
+If an error occurs before commit, the transaction can be rolled back where supported.
+
+```sql
+ROLLBACK;
+```
+
+Transaction syntax varies by database.
+
+---
+
+# 36. ACID Properties
+
+ACID ensures reliable transaction processing.
+
+## A – Atomicity
+
+All operations succeed or the transaction is rolled back.
+
+## C – Consistency
+
+A transaction preserves database rules and constraints.
+
+## I – Isolation
+
+Concurrent transactions are controlled to prevent unwanted interference.
+
+## D – Durability
+
+Committed changes survive failures according to the database's durability guarantees.
+
+### Example
+
+During a bank transfer:
+
+1. Amount is deducted from Account A.
+2. Amount is added to Account B.
+3. Both operations must succeed together.
+
+---
+
+# 37. Stored Procedures
+
+A stored procedure is a named database program that can execute SQL logic.
+
+Syntax differs by database.
+
+Example for MySQL:
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE GetEmployees()
+BEGIN
+    SELECT *
+    FROM employees;
+END //
+
+DELIMITER ;
+```
+
+Execute:
+
+```sql
+CALL GetEmployees();
+```
+
+Common uses:
+
+- Reusable database operations.
+- Business logic.
+- Batch processing.
+- Scheduled database tasks.
+
+---
+
+# 38. SQL Functions and Triggers
+
+## User-Defined Function
+
+A function returns a value or table, depending on the database.
+
+PostgreSQL example:
+
+```sql
+CREATE FUNCTION add_numbers(a INT, b INT)
+RETURNS INT
+LANGUAGE SQL
+AS $$
+    SELECT a + b;
+$$;
+```
+
+Execute:
+
+```sql
+SELECT add_numbers(10, 20);
+```
+
+## Trigger
+
+A trigger automatically executes in response to specified database events.
+
+Common events:
+
+- INSERT
+- UPDATE
+- DELETE
+
+Uses:
+
+- Auditing
+- Validation
+- Maintaining derived information
+
+Trigger syntax and capabilities vary by database.
+
+---
+
+# PHASE 10 – SQL PERFORMANCE AND OPTIMIZATION
+
+# 39. Query Execution and Optimization
+
+A database processes SQL through multiple stages.
+
+Simplified flow:
+
+```text
+SQL Query
+    |
+    v
+Parser
+    |
+    v
+Validation
+    |
+    v
+Query Optimizer
+    |
+    v
+Execution Plan
+    |
+    v
+Query Execution
+    |
+    v
+Result
+```
+
+The optimizer chooses an execution strategy based on available statistics, indexes, database rules and estimated costs.
+
+## EXPLAIN
+
+Used to inspect a query execution plan.
+
+PostgreSQL:
+
+```sql
+EXPLAIN
+SELECT *
+FROM employees
+WHERE salary > 20000;
+```
+
+To inspect actual execution statistics:
+
+```sql
+EXPLAIN ANALYZE
+SELECT *
+FROM employees
+WHERE salary > 20000;
+```
+
+Be careful: EXPLAIN ANALYZE actually executes the query.
+
+---
+
+# 40. SQL Performance Tuning
+
+Important techniques:
+
+## 1. Avoid SELECT *
+
+Instead of:
+
+```sql
+SELECT *
+FROM employees;
+```
+
+Use:
+
+```sql
+SELECT emp_id, name, salary
+FROM employees;
+```
+
+## 2. Use Appropriate Indexes
+
+```sql
+CREATE INDEX idx_salary
+ON employees(salary);
+```
+
+## 3. Filter Early
+
+```sql
+SELECT *
+FROM employees
+WHERE salary > 20000;
+```
+
+## 4. Avoid Unnecessary DISTINCT
+
+DISTINCT can require additional processing.
+
+## 5. Optimize Joins
+
+- Join on appropriate columns.
+- Check data types.
+- Understand indexes and execution plans.
+- Avoid accidental many-to-many row multiplication.
+
+## 6. Avoid Unnecessary Functions on Filtered Columns
+
+A condition such as:
+
+```sql
+WHERE YEAR(joining_date) = 2026
+```
+
+may prevent efficient use of a normal index on `joining_date`.
+
+Prefer a range condition where appropriate:
+
+```sql
+WHERE joining_date >= '2026-01-01'
+  AND joining_date < '2027-01-01';
+```
+
+## 7. Use Pagination Carefully
+
+Large OFFSET values can be expensive. Keyset pagination may be more efficient for large datasets.
+
+## 8. Check Execution Plans
+
+Never assume an index or rewritten query is faster. Measure performance.
+
+---
+
+# PHASE 11 – SQL FOR DATA ENGINEERING
+
+# 41. SQL in Data Engineering
+
+SQL is used in almost every stage of a data pipeline.
+
+```text
+Source Database
+      |
+      v
+Data Extraction
+      |
+      v
+Raw Data Layer
+      |
+      v
+SQL Transformations
+      |
+      v
+Data Warehouse
+      |
+      v
+Analytics and Reporting
+```
+
+Important concepts:
+
+- Data ingestion
+- Data transformation
+- Data cleaning
+- Data validation
+- Data warehousing
+- Data modeling
+- Partitioning
+- Incremental loading
+- CDC
+- Data quality
+
+---
+
+# 42. Incremental Data Loading
+
+Incremental loading processes only new or changed records rather than reloading the entire dataset.
+
+Example: Extract records updated after the last successful load.
+
+```sql
+SELECT *
+FROM source_orders
+WHERE updated_at > TIMESTAMP '2026-11-17 00:00:00';
+```
+
+A real pipeline should store and retrieve its last successful watermark rather than hardcode the timestamp.
+
+## Full Load vs Incremental Load
+
+| Full Load | Incremental Load |
+|---|---|
+| Loads all records | Loads new or changed records |
+| Can be expensive for large datasets | Often more efficient |
+| Simple to implement | Requires watermark or change tracking |
+| Useful for initial loads | Useful for regular updates |
+
+## Important Concepts
+
+- Watermark
+- Last processed timestamp
+- Change Data Capture (CDC)
+- Upsert
+- Deduplication
+- Idempotency
+
+---
+
+# 43. UPSERT
+
+UPSERT means inserting a record if it does not exist, or updating it if it already exists.
+
+PostgreSQL example:
+
+```sql
+INSERT INTO customers (
+    customer_id,
+    name,
+    city
+)
+VALUES (
+    101,
+    'Ankit',
+    'Bengaluru'
+)
+ON CONFLICT (customer_id)
+DO UPDATE SET
+    name = EXCLUDED.name,
+    city = EXCLUDED.city;
+```
+
+UPSERT is useful for incremental data pipelines and synchronizing records.
+
+Syntax varies across databases. SQL Server, MySQL and Oracle have their own approaches.
+
+---
+
+# 44. Slowly Changing Dimensions (SCD)
+
+SCD is a data warehousing technique used to manage changes in dimension data over time.
+
+## SCD Type 0
+
+Keep the original value unchanged.
+
+## SCD Type 1
+
+Overwrite the old value.
+
+Example: Update the customer's city without maintaining history.
+
+## SCD Type 2
+
+Preserve historical records by creating a new version.
+
+Typical columns:
+
+- customer_id
+- city
+- effective_start_date
+- effective_end_date
+- is_current
+
+Example:
+
+| customer_id | city | start_date | end_date | is_current |
+|---|---|---|---|---|
+| 101 | Nagpur | 2025-01-01 | 2026-01-01 | False |
+| 101 | Bengaluru | 2026-01-01 | NULL | True |
+
+SCD Type 2 is useful when historical changes must be retained.
+
+---
+
+# 45. Data Warehouse Modeling
+
+## Fact Table
+
+Stores measurable business events.
+
+Example:
+
+```text
+fact_sales
+----------
+sale_id
+customer_id
+product_id
+date_id
+quantity
+amount
+```
+
+## Dimension Table
+
+Stores descriptive information.
+
+Example:
+
+```text
+dim_customer
+------------
+customer_id
+customer_name
+city
+state
+```
+
+## Star Schema
+
+A fact table is connected to dimension tables.
+
+```text
+             dim_customer
+                   |
+                   |
+dim_product --- fact_sales --- dim_date
+                   |
+                   |
+              dim_store
+```
+
+Important concepts:
+
+- Fact table
+- Dimension table
+- Grain
+- Measures
+- Surrogate key
+- Natural key
+- Star schema
+- Snowflake schema
+
+---
+
+# PHASE 12 – PRACTICAL PROJECTS
+
+# 46. SQL Projects for Data Engineering
+
+## Project 1 – Employee Database
+
+Topics:
+
+- CREATE
+- INSERT
+- SELECT
+- WHERE
+- ORDER BY
+- GROUP BY
+
+Tasks:
+
+1. Create employee table.
+2. Insert employee records.
+3. Find employees earning above 20000.
+4. Calculate department-wise average salary.
+5. Find the highest salary.
+
+## Project 2 – Employee and Department Analysis
+
+Topics:
+
+- INNER JOIN
+- LEFT JOIN
+- RIGHT JOIN
+- FULL OUTER JOIN
+- Subqueries
+
+Tasks:
+
+1. Join employees and departments.
+2. Find employees without departments.
+3. Find departments without employees.
+4. Find highest-paid employee per department.
+5. Calculate department-wise employee count.
+
+## Project 3 – Advanced SQL Analysis
+
+Topics:
+
+- CTE
+- Window functions
+- RANK
+- DENSE_RANK
+- ROW_NUMBER
+
+Tasks:
+
+1. Find second-highest salary.
+2. Find third-highest salary.
+3. Find top three salaries per department.
+4. Find duplicate employees.
+5. Find employees earning above department average.
+
+## Project 4 – E-commerce Database
+
+Tables:
+
+```text
+customers
+---------
+customer_id
+name
+city
+
+orders
+------
+order_id
+customer_id
+order_date
+amount
+
+products
+--------
+product_id
+product_name
+price
+
+order_items
+-----------
+order_id
+product_id
+quantity
+```
+
+Tasks:
+
+1. Find total sales.
+2. Find top customers by spending.
+3. Find products with the highest sales.
+4. Find monthly revenue.
+5. Find customers who never placed an order.
+6. Find average order value.
+7. Find repeat customers.
+
+## Project 5 – Data Warehouse
+
+Tasks:
+
+1. Create fact and dimension tables.
+2. Load source data.
+3. Implement SCD Type 1.
+4. Implement SCD Type 2.
+5. Build analytical SQL queries.
+6. Optimize query performance.
+7. Validate data quality.
+
+---
+
+# PHASE 13 – SQL INTERVIEW PREPARATION
+
+# 47. Important Interview Questions
+
+## Basic SQL
+
+1. What is SQL?
+2. What is DBMS?
+3. What is RDBMS?
+4. What is a database?
+5. What is a table?
+6. What is a primary key?
+7. What is a foreign key?
+8. What are SQL constraints?
+9. Difference between DELETE, TRUNCATE and DROP?
+10. Difference between DDL and DML?
+
+## Intermediate SQL
+
+11. What is WHERE?
+12. Difference between WHERE and HAVING?
+13. What is GROUP BY?
+14. What is ORDER BY?
+15. What is DISTINCT?
+16. What are aggregate functions?
+17. What is a JOIN?
+18. Difference between INNER JOIN and LEFT JOIN?
+19. What is a subquery?
+20. Difference between UNION and UNION ALL?
+
+## Advanced SQL
+
+21. What is a CTE?
+22. What is a recursive CTE?
+23. What is a window function?
+24. Difference between ROW_NUMBER, RANK and DENSE_RANK?
+25. What is an index?
+26. What is a composite index?
+27. What is normalization?
+28. Explain ACID properties.
+29. What is a transaction?
+30. What is a stored procedure?
+31. What is a view?
+32. Difference between view and materialized view?
+33. What is query optimization?
+34. What is an execution plan?
+
+## Data Engineering SQL
+
+35. What is incremental loading?
+36. What is CDC?
+37. What is UPSERT?
+38. What is SCD Type 1?
+39. What is SCD Type 2?
+40. What is a fact table?
+41. What is a dimension table?
+42. What is a star schema?
+43. What is partitioning?
+44. How do you handle duplicate records?
+45. How do you validate data quality?
+
+---
+
+# 48. Important SQL Query Practice
+
+Practice these without looking at solutions.
+
+1. Display all employees.
+2. Display employee name and salary.
+3. Find employees with salary above 20000.
+4. Find employees working in IT.
+5. Find employees whose names start with A.
+6. Find the maximum salary.
+7. Find the average salary.
+8. Count employees department-wise.
+9. Find departments having more than five employees.
+10. Join employees with departments.
+11. Find employees without departments.
+12. Find second-highest salary.
+13. Find third-highest distinct salary.
+14. Find duplicate records.
+15. Find employees earning above average salary.
+16. Find highest-paid employee in each department.
+17. Find top three employees per department.
+18. Find customers who never placed orders.
+19. Calculate monthly sales.
+20. Find customers with repeat orders.
+
+---
+
+# 49. One-Minute Interview Explanation
+
+## English
+
+"SQL stands for Structured Query Language. It is used to communicate with relational databases. We use SQL to retrieve, insert, update, delete and analyze data. Important concepts include joins, aggregate functions, subqueries, CTEs and window functions. In Data Engineering, SQL is used for data extraction, transformation, validation, incremental loading and data warehouse development."
+
+## Hinglish
+
+"SQL ka full form Structured Query Language hai. Iska use relational database ke saath communicate karne ke liye hota hai. SQL se hum data retrieve, insert, update, delete aur analyze kar sakte hain. Iske important concepts joins, aggregate functions, subqueries, CTEs aur window functions hain. Data Engineering mein SQL ka use data extraction, transformation, validation aur data warehouse development ke liye hota hai."
+
+---
+
+# 50. Final Learning Roadmap
+
+| Phase | Topics | Level |
+|---|---|---|
+| 1 | Database fundamentals and SQL basics | Beginner |
+| 2 | SELECT, WHERE, ORDER BY, DISTINCT | Beginner |
+| 3 | INSERT, UPDATE, DELETE, ALTER | Beginner |
+| 4 | Aggregate functions and GROUP BY | Beginner |
+| 5 | Joins | Intermediate |
+| 6 | Subqueries and CASE | Intermediate |
+| 7 | String, date and NULL functions | Intermediate |
+| 8 | CTEs and views | Advanced |
+| 9 | Window functions | Advanced |
+| 10 | Indexes and optimization | Advanced |
+| 11 | Transactions and ACID | Advanced |
+| 12 | Incremental loading and SCD | Data Engineering |
+| 13 | Data warehouse modeling | Data Engineering |
+| 14 | Real-world projects and interviews | Job Ready |
+
+---
+
+# 51. Final Revision Checklist
+
+## SQL Basics
+
+- [ ] Database fundamentals
+- [ ] SQL command categories
+- [ ] CREATE and INSERT
+- [ ] SELECT and WHERE
+- [ ] ORDER BY and DISTINCT
+- [ ] UPDATE and DELETE
+
+## Intermediate SQL
+
+- [ ] Aggregate functions
+- [ ] GROUP BY
+- [ ] HAVING
+- [ ] INNER JOIN
+- [ ] LEFT JOIN
+- [ ] RIGHT JOIN
+- [ ] FULL OUTER JOIN
+- [ ] Subqueries
+- [ ] CASE
+- [ ] NULL handling
+
+## Advanced SQL
+
+- [ ] CTE
+- [ ] Recursive CTE
+- [ ] Views
+- [ ] Indexes
+- [ ] Window functions
+- [ ] Ranking functions
+- [ ] Transactions
+- [ ] ACID
+- [ ] Query optimization
+
+## Data Engineering
+
+- [ ] Incremental loading
+- [ ] UPSERT
+- [ ] CDC
+- [ ] SCD Type 1
+- [ ] SCD Type 2
+- [ ] Fact tables
+- [ ] Dimension tables
+- [ ] Star schema
+- [ ] Data validation
+- [ ] SQL projects
+
+---
+
+# 52. Official Documentation
+
+- PostgreSQL: https://www.postgresql.org/docs/
+- MySQL: https://dev.mysql.com/doc/
+- SQL Server: https://learn.microsoft.com/en-us/sql/
+- Oracle Database: https://docs.oracle.com/en/database/
+- SQLite: https://www.sqlite.org/docs.html
+
+---
+
+**Final Note:** SQL is one of the most important skills for a Data Engineer. Do not just memorize queries. Understand how data is stored, how tables are related, how queries execute, and how to transform real-world business data efficiently.
