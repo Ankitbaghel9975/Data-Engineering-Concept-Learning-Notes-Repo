@@ -1,0 +1,2681 @@
+# Python – Complete Beginner to Advanced Notes
+
+**Category:** Data Engineering  
+**Level:** Beginner → Intermediate → Advanced  
+
+
+---
+
+# Table of Contents
+
+1. Introduction to Python
+2. Python Environment and Execution
+3. Variables and Data Types
+4. Type Conversion
+5. Operators
+6. Conditional Statements
+7. Loops
+8. Strings
+9. Lists
+10. Tuples
+11. Sets
+12. Dictionaries
+13. List Comprehensions
+14. Functions
+15. Lambda Functions
+16. Scope and Namespaces
+17. Modules and Packages
+18. Exception Handling
+19. File Handling
+20. Working with CSV
+21. Working with JSON
+22. Object-Oriented Programming
+23. Iterators and Generators
+24. Decorators
+25. Regular Expressions
+26. Date and Time
+27. Virtual Environments and pip
+28. Logging
+29. Debugging and Testing
+30. SQL and Database Connectivity
+31. API Integration
+32. NumPy
+33. Pandas
+34. Memory Management and Performance
+35. Multithreading and Multiprocessing
+36. Asynchronous Programming
+37. Python for ETL Pipelines
+38. Python for Big Data
+39. PySpark
+40. Kafka Integration
+41. Production-Level Python Practices
+42. Projects
+43. Interview Questions
+44. Final Revision Checklist
+
+---
+
+# PHASE 1 – PYTHON FUNDAMENTALS
+
+# 1. Introduction to Python
+
+## What is Python?
+
+Python is a high-level, general-purpose programming language known for its simple syntax and readability.
+
+It is used in:
+- Web development
+- Automation
+- Data Engineering
+- Data Science
+- Artificial Intelligence
+- Machine Learning
+- API development
+- Big Data processing
+
+## Why Python in Data Engineering?
+
+Python helps Data Engineers:
+
+1. Extract data from different sources.
+2. Transform and clean raw data.
+3. Connect databases and APIs.
+4. Automate repetitive tasks.
+5. Process CSV, JSON and Parquet files.
+6. Develop ETL and ELT pipelines.
+7. Work with Apache Spark using PySpark.
+8. Integrate data with Kafka and cloud services.
+
+### Example
+
+```python
+orders = [100, 200, 300]
+
+total = sum(orders)
+
+print(total)
+```
+
+Output:
+
+```text
+600
+```
+
+**Hinglish:** Python ek programming language hai jiska use hum data ko read, clean, transform aur process karne ke liye karte hain.
+
+---
+
+# 2. Python Environment and Execution
+
+## Check Python version
+
+```bash
+python --version
+```
+
+Or:
+
+```bash
+python3 --version
+```
+
+## Create a Python file
+
+Create:
+
+```text
+hello.py
+```
+
+Code:
+
+```python
+print("Hello Data Engineering")
+```
+
+Execute:
+
+```bash
+python3 hello.py
+```
+
+## Python execution flow
+
+```text
+Python Source Code
+       |
+       v
+Python Interpreter
+       |
+       v
+Bytecode
+       |
+       v
+Python Virtual Machine
+       |
+       v
+Program Output
+```
+
+Python implementations can execute code differently, but CPython commonly compiles source code into bytecode before executing it in its virtual machine.
+
+---
+
+# 3. Variables and Data Types
+
+## What is a variable?
+
+A variable is a name that refers to an object/value in Python.
+
+```python
+name = "Ankit"
+age = 22
+salary = 15000
+```
+
+## Basic Data Types
+
+| Type | Description | Example |
+|---|---|---|
+| int | Integer | 100 |
+| float | Decimal | 10.5 |
+| str | Text | "Python" |
+| bool | True/False | True |
+| NoneType | No value | None |
+| complex | Complex number | 2+3j |
+
+Example:
+
+```python
+age = 22
+salary = 15000.50
+name = "Ankit"
+is_working = True
+result = None
+
+print(type(age))
+print(type(salary))
+print(type(name))
+print(type(is_working))
+print(type(result))
+```
+
+## Dynamic Typing
+
+Python does not require us to declare the variable's type explicitly.
+
+```python
+value = 100
+value = "Python"
+
+print(value)
+```
+
+Output:
+
+```text
+Python
+```
+
+## Type Checking
+
+```python
+x = 100
+
+print(type(x))
+print(isinstance(x, int))
+```
+
+## Naming Rules
+
+Valid:
+
+```python
+user_name = "Ankit"
+age = 22
+salary_2026 = 15000
+```
+
+Invalid:
+
+```python
+# 2name = "Ankit"
+# user name = "Ankit"
+```
+
+---
+
+# 4. Type Conversion
+
+Type conversion means changing a value from one data type to another.
+
+```python
+number = "100"
+
+converted_number = int(number)
+
+print(converted_number + 50)
+```
+
+Output:
+
+```text
+150
+```
+
+Common conversion functions:
+
+| Function | Purpose |
+|---|---|
+| int() | Convert to integer |
+| float() | Convert to float |
+| str() | Convert to string |
+| bool() | Convert to boolean |
+| list() | Convert to list |
+| tuple() | Convert to tuple |
+| set() | Convert to set |
+
+## User Input
+
+```python
+age = int(input("Enter your age: "))
+
+print(age)
+```
+
+Important: `input()` always returns a string unless you convert it.
+
+---
+
+# 5. Operators
+
+## Arithmetic Operators
+
+| Operator | Meaning |
+|---|---|
+| + | Addition |
+| - | Subtraction |
+| * | Multiplication |
+| / | Division |
+| // | Floor division |
+| % | Modulus |
+| ** | Exponent |
+
+```python
+a = 10
+b = 3
+
+print(a + b)
+print(a // b)
+print(a % b)
+print(a ** b)
+```
+
+## Comparison Operators
+
+```python
+a = 10
+b = 20
+
+print(a == b)
+print(a != b)
+print(a > b)
+print(a < b)
+```
+
+## Logical Operators
+
+```python
+age = 22
+
+print(age > 18 and age < 30)
+print(age < 18 or age > 60)
+print(not age > 18)
+```
+
+## Membership Operators
+
+```python
+languages = ["Python", "Java", "SQL"]
+
+print("Python" in languages)
+print("C++" not in languages)
+```
+
+## Identity Operators
+
+```python
+a = [1, 2]
+b = a
+c = [1, 2]
+
+print(a is b)
+print(a is c)
+print(a == c)
+```
+
+Remember:
+
+- `==` compares values.
+- `is` checks object identity.
+
+---
+
+# 6. Conditional Statements
+
+Conditions allow a program to make decisions.
+
+## if
+
+```python
+age = 22
+
+if age >= 18:
+    print("Eligible")
+```
+
+## if-else
+
+```python
+number = 10
+
+if number > 0:
+    print("Positive")
+else:
+    print("Not positive")
+```
+
+## if-elif-else
+
+```python
+marks = 85
+
+if marks >= 90:
+    print("Grade A")
+elif marks >= 70:
+    print("Grade B")
+else:
+    print("Grade C")
+```
+
+## Nested Conditions
+
+```python
+age = 22
+has_id = True
+
+if age >= 18:
+    if has_id:
+        print("Entry allowed")
+```
+
+**Data Engineering example:** Check whether a file has the expected extension before processing it.
+
+---
+
+# 7. Loops
+
+Loops execute code repeatedly.
+
+## for loop
+
+```python
+for i in range(1, 6):
+    print(i)
+```
+
+Output:
+
+```text
+1
+2
+3
+4
+5
+```
+
+## while loop
+
+```python
+i = 1
+
+while i <= 5:
+    print(i)
+    i += 1
+```
+
+## break
+
+Stops the loop.
+
+```python
+for i in range(1, 6):
+    if i == 3:
+        break
+
+    print(i)
+```
+
+## continue
+
+Skips the current iteration.
+
+```python
+for i in range(1, 6):
+    if i == 3:
+        continue
+
+    print(i)
+```
+
+## pass
+
+Acts as a placeholder.
+
+```python
+for i in range(5):
+    pass
+```
+
+## Nested Loops
+
+```python
+for i in range(1, 4):
+    for j in range(1, 3):
+        print(i, j)
+```
+
+**Data Engineering use:** Iterate through files, records, API responses and batches of data.
+
+---
+
+# PHASE 2 – PYTHON DATA STRUCTURES
+
+# 8. Strings
+
+A string is an immutable sequence of characters.
+
+```python
+name = "Python"
+```
+
+## Indexing
+
+```python
+print(name[0])
+print(name[-1])
+```
+
+## Slicing
+
+```python
+print(name[0:3])
+print(name[::-1])
+```
+
+## String Methods
+
+```python
+text = " data engineering "
+
+print(text.upper())
+print(text.lower())
+print(text.strip())
+print(text.title())
+print(text.replace("data", "big data"))
+print(text.split())
+```
+
+## String Formatting
+
+```python
+name = "Ankit"
+salary = 15000
+
+print(f"My name is {name} and salary is {salary}")
+```
+
+## Joining Strings
+
+```python
+words = ["Data", "Engineering"]
+
+result = " ".join(words)
+
+print(result)
+```
+
+**Remember:** Strings are immutable. String methods generally return new strings instead of changing the original string.
+
+---
+
+# 9. Lists
+
+A list stores multiple values in an ordered and mutable collection.
+
+```python
+orders = [100, 200, 300, 400]
+```
+
+## Access Elements
+
+```python
+print(orders[0])
+print(orders[-1])
+```
+
+## Add Elements
+
+```python
+orders.append(500)
+orders.insert(1, 150)
+```
+
+## Remove Elements
+
+```python
+orders.remove(200)
+orders.pop()
+```
+
+## Update Elements
+
+```python
+orders[0] = 999
+```
+
+## Useful Functions
+
+```python
+numbers = [10, 20, 30, 40]
+
+print(len(numbers))
+print(max(numbers))
+print(min(numbers))
+print(sum(numbers))
+print(sorted(numbers))
+```
+
+## List Slicing
+
+```python
+numbers = [10, 20, 30, 40, 50]
+
+print(numbers[1:4])
+```
+
+## List Comprehension
+
+```python
+numbers = [1, 2, 3, 4, 5]
+
+squares = [x * x for x in numbers]
+
+print(squares)
+```
+
+## Data Engineering Example
+
+```python
+orders = [100, 200, 50, 300, 150]
+
+high_value_orders = [
+    order for order in orders if order >= 150
+]
+
+print(high_value_orders)
+```
+
+---
+
+# 10. Tuples
+
+A tuple is an ordered and immutable collection.
+
+```python
+employee = ("Ankit", 22, 15000)
+```
+
+Access:
+
+```python
+print(employee[0])
+```
+
+Tuple unpacking:
+
+```python
+name, age, salary = employee
+
+print(name)
+print(age)
+print(salary)
+```
+
+### List vs Tuple
+
+| List | Tuple |
+|---|---|
+| Mutable | Immutable |
+| Uses [] | Uses () |
+| Can update elements | Cannot update elements |
+| Suitable for changing collections | Suitable for fixed collections |
+
+---
+
+# 11. Sets
+
+A set is an unordered collection of unique elements.
+
+```python
+numbers = {1, 2, 2, 3, 4}
+
+print(numbers)
+```
+
+Duplicate values are removed.
+
+## Add and Remove
+
+```python
+numbers.add(5)
+numbers.remove(2)
+```
+
+## Set Operations
+
+```python
+a = {1, 2, 3}
+b = {3, 4, 5}
+
+print(a.union(b))
+print(a.intersection(b))
+print(a.difference(b))
+print(a.symmetric_difference(b))
+```
+
+**Data Engineering use:** Remove duplicates and compare unique values from datasets.
+
+---
+
+# 12. Dictionaries
+
+A dictionary stores data in key-value pairs.
+
+```python
+employee = {
+    "name": "Ankit",
+    "age": 22,
+    "salary": 15000
+}
+```
+
+## Access Values
+
+```python
+print(employee["name"])
+print(employee.get("salary"))
+```
+
+## Add or Update
+
+```python
+employee["department"] = "Data Engineering"
+employee["salary"] = 18000
+```
+
+## Delete
+
+```python
+del employee["age"]
+```
+
+## Loop Through Dictionary
+
+```python
+for key, value in employee.items():
+    print(key, value)
+```
+
+## Data Engineering Example
+
+```python
+customer = {
+    "customer_id": 101,
+    "name": "Rahul",
+    "city": "Bengaluru"
+}
+
+print(customer["customer_id"])
+```
+
+JSON data commonly maps naturally to Python dictionaries and lists.
+
+---
+
+# 13. List Comprehension
+
+List comprehension provides a concise way to create lists.
+
+Normal approach:
+
+```python
+numbers = [1, 2, 3, 4, 5]
+
+squares = []
+
+for number in numbers:
+    squares.append(number * number)
+
+print(squares)
+```
+
+Comprehension approach:
+
+```python
+squares = [number * number for number in range(1, 6)]
+
+print(squares)
+```
+
+With condition:
+
+```python
+even_numbers = [
+    number for number in range(1, 11)
+    if number % 2 == 0
+]
+
+print(even_numbers)
+```
+
+---
+
+# PHASE 3 – FUNCTIONS AND CODE ORGANIZATION
+
+# 14. Functions
+
+A function is a reusable block of code.
+
+```python
+def greet():
+    print("Welcome to Data Engineering")
+
+greet()
+```
+
+## Parameters and Arguments
+
+```python
+def add(a, b):
+    return a + b
+
+result = add(10, 20)
+
+print(result)
+```
+
+## Default Arguments
+
+```python
+def greet(name="User"):
+    print("Hello", name)
+
+greet()
+greet("Ankit")
+```
+
+## Keyword Arguments
+
+```python
+def employee(name, salary):
+    print(name, salary)
+
+employee(salary=15000, name="Ankit")
+```
+
+## *args
+
+Allows a function to accept multiple positional arguments.
+
+```python
+def total(*numbers):
+    return sum(numbers)
+
+print(total(10, 20, 30))
+```
+
+## **kwargs
+
+Allows a function to accept multiple keyword arguments.
+
+```python
+def employee(**details):
+    print(details)
+
+employee(name="Ankit", salary=15000, department="Data")
+```
+
+## Return Statement
+
+```python
+def calculate_total(a, b):
+    return a + b
+
+result = calculate_total(10, 20)
+print(result)
+```
+
+**Remember:** A function without an explicit return statement returns `None`.
+
+---
+
+# 15. Lambda Functions
+
+A lambda function is a small anonymous function.
+
+```python
+square = lambda x: x * x
+
+print(square(5))
+```
+
+Using `sorted()`:
+
+```python
+employees = [
+    {"name": "A", "salary": 20000},
+    {"name": "B", "salary": 15000}
+]
+
+result = sorted(employees, key=lambda x: x["salary"])
+
+print(result)
+```
+
+Use lambda for small expressions. Use normal functions when logic becomes complex.
+
+---
+
+# 16. Scope and Namespaces
+
+Scope defines where a variable can be accessed.
+
+Main types:
+
+1. Local scope
+2. Enclosing scope
+3. Global scope
+4. Built-in scope
+
+Example:
+
+```python
+x = 100
+
+def display():
+    y = 50
+    print(x)
+    print(y)
+
+display()
+```
+
+Global keyword:
+
+```python
+count = 0
+
+def update():
+    global count
+    count += 1
+
+update()
+
+print(count)
+```
+
+Avoid unnecessary global variables in production applications.
+
+---
+
+# 17. Modules and Packages
+
+## What is a module?
+
+A module is a Python file containing reusable code.
+
+Example:
+
+```python
+import math
+
+print(math.sqrt(25))
+```
+
+## Import Specific Function
+
+```python
+from math import sqrt
+
+print(sqrt(36))
+```
+
+## Create Your Own Module
+
+File: `calculator.py`
+
+```python
+def add(a, b):
+    return a + b
+```
+
+File: `main.py`
+
+```python
+import calculator
+
+print(calculator.add(10, 20))
+```
+
+## What is a package?
+
+A package organizes related Python modules into a directory structure.
+
+Example:
+
+```text
+project/
+│
+├── main.py
+│
+└── utilities/
+    ├── __init__.py
+    ├── calculator.py
+    └── file_handler.py
+```
+
+---
+
+# PHASE 4 – ERROR HANDLING AND FILE PROCESSING
+
+# 18. Exception Handling
+
+Exception handling manages errors during program execution.
+
+## try-except
+
+```python
+try:
+    number = int(input("Enter number: "))
+    print(number)
+except ValueError:
+    print("Please enter a valid integer")
+```
+
+## try-except-else-finally
+
+```python
+try:
+    result = 10 / 2
+
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+
+else:
+    print("Result:", result)
+
+finally:
+    print("Execution completed")
+```
+
+## Raise Exception
+
+```python
+age = -5
+
+if age < 0:
+    raise ValueError("Age cannot be negative")
+```
+
+## Custom Exception
+
+```python
+class InvalidDataError(Exception):
+    pass
+
+try:
+    raise InvalidDataError("Invalid customer record")
+
+except InvalidDataError as error:
+    print(error)
+```
+
+**Data Engineering use:** Handle missing files, incorrect records, invalid data and failed API requests.
+
+---
+
+# 19. File Handling
+
+Python can read and write files.
+
+## Read a File
+
+```python
+with open("data.txt", "r") as file:
+    content = file.read()
+
+print(content)
+```
+
+## Write a File
+
+```python
+with open("data.txt", "w") as file:
+    file.write("Hello Data Engineering")
+```
+
+## Append a File
+
+```python
+with open("data.txt", "a") as file:
+    file.write("\nNew record")
+```
+
+## File Modes
+
+| Mode | Meaning |
+|---|---|
+| r | Read |
+| w | Write, replacing existing content |
+| a | Append |
+| x | Create, fail if already exists |
+| rb | Read binary |
+| wb | Write binary |
+
+## Why use `with open()`?
+
+It automatically closes the file after the block finishes, including when an exception occurs.
+
+---
+
+# 20. CSV File Handling
+
+CSV means Comma-Separated Values.
+
+Example file: `employees.csv`
+
+```csv
+id,name,salary
+1,Ankit,15000
+2,Rahul,20000
+3,Amit,18000
+```
+
+Read CSV:
+
+```python
+import csv
+
+with open("employees.csv", "r") as file:
+    reader = csv.DictReader(file)
+
+    for row in reader:
+        print(row)
+```
+
+Write CSV:
+
+```python
+import csv
+
+data = [
+    ["id", "name", "salary"],
+    [1, "Ankit", 15000],
+    [2, "Rahul", 20000]
+]
+
+with open("output.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
+```
+
+**Data Engineering use:** CSV is a common format for exchanging structured data between systems.
+
+---
+
+# 21. JSON File Handling
+
+JSON means JavaScript Object Notation.
+
+It is widely used for APIs and data exchange.
+
+Example JSON:
+
+```json
+{
+  "customer_id": 101,
+  "name": "Ankit",
+  "city": "Bengaluru"
+}
+```
+
+Read JSON:
+
+```python
+import json
+
+with open("customer.json", "r") as file:
+    data = json.load(file)
+
+print(data["name"])
+```
+
+Write JSON:
+
+```python
+import json
+
+customer = {
+    "customer_id": 101,
+    "name": "Ankit"
+}
+
+with open("output.json", "w") as file:
+    json.dump(customer, file, indent=4)
+```
+
+## JSON Functions
+
+| Function | Purpose |
+|---|---|
+| json.load() | Read JSON from a file |
+| json.loads() | Parse JSON from a string |
+| json.dump() | Write JSON to a file |
+| json.dumps() | Convert Python data into a JSON string |
+
+---
+
+# PHASE 5 – OBJECT-ORIENTED PROGRAMMING
+
+# 22. OOP Concepts
+
+OOP means Object-Oriented Programming.
+
+It organizes programs using classes and objects.
+
+## Class
+
+A class is a blueprint for creating objects.
+
+## Object
+
+An object is an instance of a class.
+
+Example:
+
+```python
+class Employee:
+
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+
+    def display(self):
+        print(self.name, self.salary)
+
+
+emp1 = Employee("Ankit", 15000)
+
+emp1.display()
+```
+
+## Constructor
+
+`__init__()` initializes an object's attributes when the object is created.
+
+## Four Pillars of OOP
+
+### 1. Encapsulation
+
+Combines data and methods within a class and controls how they are accessed.
+
+```python
+class BankAccount:
+
+    def __init__(self, balance):
+        self.__balance = balance
+
+    def get_balance(self):
+        return self.__balance
+
+
+account = BankAccount(5000)
+
+print(account.get_balance())
+```
+
+Double underscores trigger name mangling; they do not provide absolute security.
+
+### 2. Inheritance
+
+One class can inherit functionality from another class.
+
+```python
+class Animal:
+
+    def eat(self):
+        print("Eating")
+
+
+class Dog(Animal):
+
+    def bark(self):
+        print("Barking")
+
+
+dog = Dog()
+
+dog.eat()
+dog.bark()
+```
+
+### 3. Polymorphism
+
+Different objects can provide different implementations of a common interface.
+
+```python
+class Cat:
+
+    def sound(self):
+        print("Meow")
+
+
+class Dog:
+
+    def sound(self):
+        print("Bark")
+
+
+for animal in [Cat(), Dog()]:
+    animal.sound()
+```
+
+### 4. Abstraction
+
+Hides implementation details and exposes a required interface.
+
+```python
+from abc import ABC, abstractmethod
+
+
+class DataProcessor(ABC):
+
+    @abstractmethod
+    def process(self):
+        pass
+
+
+class CSVProcessor(DataProcessor):
+
+    def process(self):
+        print("Processing CSV")
+
+
+processor = CSVProcessor()
+
+processor.process()
+```
+
+## Other OOP Concepts
+
+- Instance variables
+- Class variables
+- Instance methods
+- Class methods
+- Static methods
+- Method overriding
+- Composition
+- Magic methods
+
+Example:
+
+```python
+class Employee:
+
+    company = "Translab"
+
+    @classmethod
+    def get_company(cls):
+        return cls.company
+
+    @staticmethod
+    def welcome():
+        print("Welcome")
+
+
+print(Employee.get_company())
+Employee.welcome()
+```
+
+---
+
+# PHASE 6 – ADVANCED PYTHON
+
+# 23. Iterators and Generators
+
+## Iterator
+
+An iterator returns values one at a time.
+
+```python
+numbers = [10, 20, 30]
+
+iterator = iter(numbers)
+
+print(next(iterator))
+print(next(iterator))
+print(next(iterator))
+```
+
+## Generator
+
+A generator produces values lazily using `yield`.
+
+```python
+def generate_numbers():
+    yield 10
+    yield 20
+    yield 30
+
+
+for number in generate_numbers():
+    print(number)
+```
+
+### Why generators are important?
+
+They can reduce memory usage when processing large sequences because they do not need to store all generated values at once.
+
+**Data Engineering use:** Process large files and records incrementally.
+
+---
+
+# 24. Decorators
+
+A decorator adds behavior to an existing function without changing its original code.
+
+```python
+def my_decorator(function):
+
+    def wrapper():
+        print("Before execution")
+
+        function()
+
+        print("After execution")
+
+    return wrapper
+
+
+@my_decorator
+def hello():
+    print("Hello")
+
+
+hello()
+```
+
+Output:
+
+```text
+Before execution
+Hello
+After execution
+```
+
+Common uses:
+
+- Logging
+- Authentication
+- Timing functions
+- Access control
+- Caching
+
+For production decorators, consider preserving function metadata with `functools.wraps`.
+
+---
+
+# 25. Regular Expressions
+
+Regular expressions help search and match text patterns.
+
+Python provides the `re` module.
+
+```python
+import re
+
+text = "My phone number is 9876543210"
+
+result = re.findall(r"\d+", text)
+
+print(result)
+```
+
+Output:
+
+```text
+['9876543210']
+```
+
+Useful functions:
+
+| Function | Purpose |
+|---|---|
+| re.search() | Find first match |
+| re.findall() | Find all matches |
+| re.match() | Match at beginning |
+| re.sub() | Replace matching text |
+| re.split() | Split using a pattern |
+
+**Data Engineering use:** Validate emails, extract IDs and clean text fields.
+
+---
+
+# 26. Date and Time
+
+Python provides the `datetime` module.
+
+```python
+from datetime import datetime
+
+current_time = datetime.now()
+
+print(current_time)
+```
+
+Format date:
+
+```python
+from datetime import datetime
+
+today = datetime.now()
+
+print(today.strftime("%Y-%m-%d"))
+```
+
+Convert string to date:
+
+```python
+from datetime import datetime
+
+date_string = "2026-11-18"
+
+date_object = datetime.strptime(date_string, "%Y-%m-%d")
+
+print(date_object)
+```
+
+**Data Engineering use:**
+
+- Timestamp processing
+- Date-based partitioning
+- Incremental data loading
+- Scheduling jobs
+- Event-time analysis
+
+Important: Be aware of time zones and UTC when handling distributed data.
+
+---
+
+# 27. Virtual Environments and pip
+
+A virtual environment isolates project dependencies.
+
+## Create environment
+
+```bash
+python3 -m venv .venv
+```
+
+## Activate on Ubuntu/Linux
+
+```bash
+source .venv/bin/activate
+```
+
+## Activate on Windows
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+## Install package
+
+```bash
+python -m pip install pandas
+```
+
+## Check installed packages
+
+```bash
+python -m pip list
+```
+
+## Save dependencies
+
+```bash
+python -m pip freeze > requirements.txt
+```
+
+## Install dependencies
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+## Deactivate
+
+```bash
+deactivate
+```
+
+---
+
+# 28. Logging
+
+Logging records information about application execution.
+
+```python
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+logging.info("Pipeline started")
+logging.warning("Missing records found")
+logging.error("Pipeline failed")
+```
+
+## Logging Levels
+
+| Level | Purpose |
+|---|---|
+| DEBUG | Detailed debugging |
+| INFO | Normal application events |
+| WARNING | Unexpected situation |
+| ERROR | Operation failed |
+| CRITICAL | Serious failure |
+
+**Data Engineering use:** Track pipeline execution, failed records and data quality problems.
+
+Avoid logging passwords, access tokens or sensitive personal data.
+
+---
+
+# 29. Debugging and Testing
+
+## Debugging
+
+Debugging means identifying and fixing errors in a program.
+
+Useful methods:
+
+- Print debugging
+- Python debugger (`pdb`)
+- IDE breakpoints
+- Reading stack traces
+- Logging
+
+Example:
+
+```python
+import pdb
+
+a = 10
+b = 20
+
+pdb.set_trace()
+
+result = a + b
+
+print(result)
+```
+
+## Unit Testing
+
+Python provides `unittest`.
+
+```python
+import unittest
+
+
+def add(a, b):
+    return a + b
+
+
+class TestCalculator(unittest.TestCase):
+
+    def test_add(self):
+        self.assertEqual(add(10, 20), 30)
+
+
+if __name__ == "__main__":
+    unittest.main()
+```
+
+Run:
+
+```bash
+python test_calculator.py
+```
+
+Testing helps ensure that changes do not break existing functionality.
+
+---
+
+# PHASE 7 – PYTHON FOR DATA ENGINEERING
+
+# 30. SQL and Database Connectivity
+
+Python can connect to relational databases.
+
+For PostgreSQL, one commonly used library is `psycopg`.
+
+Install:
+
+```bash
+python -m pip install "psycopg[binary]"
+```
+
+Example:
+
+```python
+import psycopg
+
+with psycopg.connect(
+    "dbname=mydb user=myuser password=mypassword host=localhost"
+) as connection:
+
+    with connection.cursor() as cursor:
+
+        cursor.execute("SELECT customer_id, name FROM customers")
+
+        rows = cursor.fetchall()
+
+        for row in rows:
+            print(row)
+```
+
+Use environment variables or a secrets manager for credentials in real applications. Do not commit passwords to GitHub.
+
+## Important Database Concepts
+
+- Connection
+- Cursor
+- SQL queries
+- Transactions
+- Commit
+- Rollback
+- Connection pooling
+- Parameterized queries
+
+## Parameterized Query
+
+```python
+cursor.execute(
+    "SELECT * FROM customers WHERE customer_id = %s",
+    (101,)
+)
+```
+
+Parameterized queries help protect against SQL injection.
+
+---
+
+# 31. API Integration
+
+An API allows different applications to communicate.
+
+Python commonly uses the `requests` library to call HTTP APIs.
+
+Install:
+
+```bash
+python -m pip install requests
+```
+
+Example:
+
+```python
+import requests
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(url, timeout=10)
+
+response.raise_for_status()
+
+data = response.json()
+
+for user in data:
+    print(user["name"])
+```
+
+## Important HTTP Methods
+
+| Method | Purpose |
+|---|---|
+| GET | Retrieve data |
+| POST | Create data |
+| PUT | Replace a resource |
+| PATCH | Partially update a resource |
+| DELETE | Delete a resource |
+
+## Important Status Codes
+
+| Code | Meaning |
+|---|---|
+| 200 | OK |
+| 201 | Created |
+| 400 | Bad Request |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 404 | Not Found |
+| 500 | Internal Server Error |
+
+**Data Engineering use:** Extract data from external APIs and load it into databases or data lakes.
+
+Production API clients should also handle authentication, pagination, retries, rate limits and timeouts.
+
+---
+
+# 32. NumPy
+
+NumPy is a Python library for numerical computing.
+
+Install:
+
+```bash
+python -m pip install numpy
+```
+
+Example:
+
+```python
+import numpy as np
+
+numbers = np.array([10, 20, 30, 40])
+
+print(numbers)
+print(numbers.mean())
+print(numbers.sum())
+```
+
+Important concepts:
+
+- ndarray
+- Array dimensions
+- Shape
+- Indexing
+- Slicing
+- Broadcasting
+- Vectorization
+
+**Data Engineering use:** Efficient numerical calculations and array operations.
+
+---
+
+# 33. Pandas
+
+Pandas is a Python library used for data analysis and manipulation.
+
+Install:
+
+```bash
+python -m pip install pandas
+```
+
+## Series
+
+A Series is a one-dimensional labeled data structure.
+
+```python
+import pandas as pd
+
+numbers = pd.Series([10, 20, 30])
+
+print(numbers)
+```
+
+## DataFrame
+
+A DataFrame is a two-dimensional tabular data structure.
+
+```python
+import pandas as pd
+
+data = {
+    "name": ["Ankit", "Rahul", "Amit"],
+    "salary": [15000, 20000, 18000]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+```
+
+## Read CSV
+
+```python
+df = pd.read_csv("employees.csv")
+
+print(df.head())
+```
+
+## Inspect Data
+
+```python
+print(df.head())
+print(df.tail())
+print(df.shape)
+print(df.columns)
+print(df.info())
+print(df.describe())
+```
+
+## Filter Data
+
+```python
+high_salary = df[df["salary"] > 16000]
+
+print(high_salary)
+```
+
+## Handle Missing Values
+
+```python
+df.isnull().sum()
+
+df = df.fillna(0)
+```
+
+## Group Data
+
+```python
+result = df.groupby("department")["salary"].mean()
+
+print(result)
+```
+
+## Remove Duplicates
+
+```python
+df = df.drop_duplicates()
+```
+
+## Save CSV
+
+```python
+df.to_csv("output.csv", index=False)
+```
+
+**Important:** Pandas is useful for small and medium-sized datasets that fit into available memory. For distributed processing of large datasets, consider Spark.
+
+---
+
+# 34. Memory Management and Performance
+
+Python memory management involves:
+
+- Object allocation
+- Reference counting in CPython
+- Garbage collection
+- Memory reuse
+
+## Garbage Collection
+
+```python
+import gc
+
+gc.collect()
+```
+
+## Performance Tips
+
+1. Use generators for large streams of records.
+2. Avoid unnecessary copies of large data.
+3. Use built-in functions where appropriate.
+4. Prefer vectorized Pandas or NumPy operations when suitable.
+5. Process files in chunks.
+6. Profile before optimizing.
+7. Choose appropriate data structures.
+
+## Example: Chunk Processing
+
+```python
+import pandas as pd
+
+for chunk in pd.read_csv("large_file.csv", chunksize=10000):
+    print(len(chunk))
+```
+
+This processes the file in chunks instead of loading the complete file into memory at once.
+
+---
+
+# 35. Multithreading and Multiprocessing
+
+These techniques help run multiple tasks concurrently or in parallel.
+
+## Multithreading
+
+Useful for I/O-bound tasks, such as downloading data or waiting for API responses.
+
+```python
+import threading
+
+def task():
+    print("Task running")
+
+thread = threading.Thread(target=task)
+
+thread.start()
+thread.join()
+```
+
+## Multiprocessing
+
+Uses separate processes and can execute CPU-intensive work in parallel.
+
+```python
+from multiprocessing import Process
+
+def task():
+    print("Processing data")
+
+if __name__ == "__main__":
+    process = Process(target=task)
+
+    process.start()
+    process.join()
+```
+
+## Difference
+
+| Multithreading | Multiprocessing |
+|---|---|
+| Uses multiple threads | Uses multiple processes |
+| Shared process memory | Separate process memory |
+| Useful for I/O-bound tasks | Useful for CPU-bound tasks |
+| Lower process creation overhead | Higher process creation overhead |
+
+CPython's Global Interpreter Lock affects CPU-bound Python threads in standard builds. Exact behavior depends on Python implementation and build.
+
+---
+
+# 36. Asynchronous Programming
+
+Async programming helps manage many I/O operations without blocking the event loop.
+
+Python uses `async` and `await`.
+
+```python
+import asyncio
+
+async def task():
+    print("Task started")
+
+    await asyncio.sleep(2)
+
+    print("Task completed")
+
+
+asyncio.run(task())
+```
+
+Important concepts:
+
+- Coroutine
+- Event loop
+- async
+- await
+- asyncio
+- Concurrent I/O
+
+**Data Engineering use:** Handle multiple asynchronous API requests and I/O operations efficiently.
+
+Async programming is not automatically faster for CPU-intensive calculations.
+
+---
+
+# PHASE 8 – PYTHON IN BIG DATA AND DATA PIPELINES
+
+# 37. Python for ETL Pipelines
+
+ETL means:
+
+- Extract
+- Transform
+- Load
+
+## ETL Architecture
+
+```text
+Data Sources
+     |
+     v
+Extract Data
+     |
+     v
+Transform Data
+     |
+     v
+Validate Data
+     |
+     v
+Load Data
+     |
+     v
+Data Warehouse
+```
+
+## Example ETL Pipeline
+
+```python
+import pandas as pd
+
+# Extract
+df = pd.read_csv("orders.csv")
+
+# Transform
+df = df.drop_duplicates()
+
+df["amount"] = df["amount"].fillna(0)
+
+df = df[df["amount"] > 0]
+
+# Load
+df.to_csv("clean_orders.csv", index=False)
+
+print("ETL completed")
+```
+
+## Important ETL Concepts
+
+- Source systems
+- Data extraction
+- Data transformation
+- Data validation
+- Data loading
+- Incremental loading
+- Full loading
+- Data quality
+- Error handling
+- Pipeline monitoring
+
+---
+
+# 38. Python for Big Data
+
+Python is used in Big Data systems to coordinate and process data.
+
+Important technologies:
+
+| Technology | Purpose |
+|---|---|
+| Hadoop | Distributed storage and processing ecosystem |
+| HDFS | Distributed file storage |
+| YARN | Cluster resource management |
+| Spark | Distributed data processing |
+| PySpark | Python API for Apache Spark |
+| Kafka | Distributed event streaming |
+| Hive | SQL-based data warehousing |
+| Airflow | Workflow orchestration |
+
+## Python's Role
+
+Python can:
+
+1. Read data from APIs.
+2. Extract data from databases.
+3. Prepare files for HDFS.
+4. Submit Spark jobs.
+5. Consume or produce Kafka messages.
+6. Automate workflows.
+7. Validate processed data.
+
+---
+
+# 39. PySpark
+
+PySpark is the Python API for Apache Spark.
+
+It enables distributed data processing using Spark.
+
+Install for local learning:
+
+```bash
+python -m pip install pyspark
+```
+
+## Create Spark Session
+
+```python
+from pyspark.sql import SparkSession
+
+spark = (
+    SparkSession.builder
+    .appName("DataEngineering")
+    .master("local[*]")
+    .getOrCreate()
+)
+```
+
+## Create DataFrame
+
+```python
+data = [
+    (1, "Ankit", 15000),
+    (2, "Rahul", 20000),
+    (3, "Amit", 18000)
+]
+
+columns = ["id", "name", "salary"]
+
+df = spark.createDataFrame(data, columns)
+
+df.show()
+```
+
+## Select Columns
+
+```python
+df.select("name", "salary").show()
+```
+
+## Filter Rows
+
+```python
+df.filter(df.salary > 16000).show()
+```
+
+## Group By
+
+```python
+df.groupBy().avg("salary").show()
+```
+
+## Read CSV
+
+```python
+df = spark.read.csv(
+    "employees.csv",
+    header=True,
+    inferSchema=True
+)
+
+df.show()
+```
+
+## Write Data
+
+```python
+df.write.mode("overwrite").parquet("output/employees")
+```
+
+## Important PySpark Concepts
+
+1. SparkSession
+2. DataFrame
+3. RDD
+4. Transformations
+5. Actions
+6. Lazy evaluation
+7. Narrow transformations
+8. Wide transformations
+9. Shuffle
+10. Partitions
+11. Caching
+12. Joins
+13. Aggregations
+14. Spark SQL
+15. Execution plans
+
+**Remember:** Python is the programming interface; Spark performs distributed execution across the cluster.
+
+---
+
+# 40. Kafka Integration
+
+Kafka is a distributed event streaming platform.
+
+Python applications can produce and consume Kafka messages using client libraries.
+
+One popular package is `confluent-kafka`.
+
+Install:
+
+```bash
+python -m pip install confluent-kafka
+```
+
+## Producer Example
+
+```python
+from confluent_kafka import Producer
+
+producer = Producer({
+    "bootstrap.servers": "localhost:9092"
+})
+
+producer.produce(
+    "orders",
+    key="order-101",
+    value='{"order_id": 101, "amount": 500}'
+)
+
+producer.flush()
+```
+
+## Consumer Example
+
+```python
+from confluent_kafka import Consumer
+
+consumer = Consumer({
+    "bootstrap.servers": "localhost:9092",
+    "group.id": "order-consumer",
+    "auto.offset.reset": "earliest"
+})
+
+consumer.subscribe(["orders"])
+
+try:
+    while True:
+        message = consumer.poll(1.0)
+
+        if message is None:
+            continue
+
+        if message.error():
+            print(message.error())
+            continue
+
+        print(message.value().decode("utf-8"))
+
+finally:
+    consumer.close()
+```
+
+These examples assume Kafka is running locally and the topic exists or topic auto-creation is enabled.
+
+## Important Kafka Concepts
+
+- Producer
+- Consumer
+- Broker
+- Topic
+- Partition
+- Offset
+- Consumer Group
+- Replication
+- Message Key
+- Retention
+
+---
+
+# PHASE 9 – PRODUCTION-LEVEL PYTHON
+
+# 41. Production-Level Best Practices
+
+When writing Python for a company project:
+
+## Code Quality
+
+- Use meaningful variable names.
+- Follow PEP 8.
+- Write reusable functions.
+- Keep functions focused.
+- Avoid duplicate code.
+- Add appropriate documentation.
+- Use type hints where useful.
+
+## Type Hints
+
+```python
+def calculate_total(price: float, quantity: int) -> float:
+    return price * quantity
+```
+
+## Configuration Management
+
+Keep configuration separate from business logic.
+
+```python
+import os
+
+environment = os.getenv("APP_ENV", "development")
+
+print(environment)
+```
+
+## Security
+
+- Never commit passwords or API keys.
+- Use environment variables or secret managers.
+- Use parameterized SQL queries.
+- Validate input data.
+- Apply least-privilege access.
+- Avoid logging sensitive information.
+
+## Reliability
+
+- Add error handling.
+- Use logging.
+- Implement retry policies where appropriate.
+- Validate input and output.
+- Monitor pipeline execution.
+- Make pipeline operations idempotent where possible.
+
+## Deployment
+
+Learn:
+
+- Git and GitHub
+- Linux
+- Bash
+- Docker
+- CI/CD
+- Cloud services
+- Workflow orchestration
+
+---
+
+# PHASE 10 – PRACTICAL PROJECTS
+
+# 42. Python Projects for Data Engineering
+
+## Project 1 – Employee Management
+
+Concepts:
+
+- Variables
+- Lists
+- Dictionaries
+- Functions
+- Conditions
+
+Tasks:
+
+1. Add employees.
+2. Display employees.
+3. Update employee salary.
+4. Search employee by ID.
+5. Delete employee.
+
+## Project 2 – CSV Data Cleaning
+
+Concepts:
+
+- File handling
+- CSV
+- Pandas
+- Missing values
+- Duplicates
+
+Tasks:
+
+1. Read a CSV file.
+2. Find missing values.
+3. Remove duplicate records.
+4. Validate data.
+5. Save the cleaned file.
+
+## Project 3 – API Data Extraction
+
+Concepts:
+
+- APIs
+- Requests
+- JSON
+- Exception handling
+
+Tasks:
+
+1. Call an API.
+2. Extract JSON records.
+3. Validate fields.
+4. Save data into a JSON or CSV file.
+5. Add logging.
+
+## Project 4 – Database ETL Pipeline
+
+Architecture:
+
+```text
+CSV / API
+    |
+    v
+Python Extraction
+    |
+    v
+Data Cleaning
+    |
+    v
+Validation
+    |
+    v
+PostgreSQL
+    |
+    v
+Reporting
+```
+
+Tasks:
+
+1. Extract customer data.
+2. Clean records.
+3. Validate IDs and values.
+4. Load records into PostgreSQL.
+5. Handle errors.
+6. Record execution logs.
+
+## Project 5 – PySpark Data Processing
+
+Tasks:
+
+1. Read a large CSV dataset.
+2. Create a Spark DataFrame.
+3. Remove duplicates.
+4. Handle null values.
+5. Perform aggregations.
+6. Save output as Parquet.
+7. Understand the execution plan.
+
+## Project 6 – Kafka Streaming Pipeline
+
+Architecture:
+
+```text
+Order Application
+       |
+       v
+Kafka Producer
+       |
+       v
+Kafka Topic
+       |
+       v
+Python Consumer
+       |
+       v
+Data Validation
+       |
+       v
+Database / Data Lake
+```
+
+Tasks:
+
+1. Generate order events.
+2. Publish events to Kafka.
+3. Consume events.
+4. Validate JSON.
+5. Store processed events.
+6. Handle invalid messages.
+
+---
+
+# PHASE 11 – PYTHON INTERVIEW PREPARATION
+
+# 43. Important Interview Questions
+
+## Basic
+
+1. What is Python?
+2. Why is Python used in Data Engineering?
+3. What is a variable?
+4. What are Python data types?
+5. What is dynamic typing?
+6. What is type conversion?
+7. What is indentation?
+8. What is the difference between `=` and `==`?
+9. What is the difference between `is` and `==`?
+10. What is the difference between break and continue?
+
+## Intermediate
+
+11. Difference between list and tuple?
+12. Difference between list and set?
+13. What is a dictionary?
+14. What is list comprehension?
+15. What is a lambda function?
+16. What are *args and **kwargs?
+17. What is a generator?
+18. What is an iterator?
+19. What is exception handling?
+20. What is the difference between a module and package?
+
+## Advanced
+
+21. Explain OOP concepts.
+22. What is a decorator?
+23. What is a context manager?
+24. What is the Global Interpreter Lock?
+25. Difference between multithreading and multiprocessing?
+26. What is asynchronous programming?
+27. Explain Python memory management.
+28. What is garbage collection?
+29. How do you optimize Python code?
+30. How do you process large CSV files?
+
+## Data Engineering
+
+31. How do you read a CSV file using Python?
+32. How do you process JSON data?
+33. How do you connect Python with a database?
+34. How do you extract data from an API?
+35. What is an ETL pipeline?
+36. How do you handle missing data?
+37. How do you remove duplicate records?
+38. What is the role of Python in Hadoop?
+39. What is PySpark?
+40. Difference between Pandas and PySpark?
+41. How does Python interact with Kafka?
+42. How do you implement logging in a pipeline?
+43. How do you handle pipeline failures?
+44. What is incremental data loading?
+45. How do you ensure data quality?
+
+---
+
+# 44. Final Learning Roadmap
+
+| Phase | Topics | Target |
+|---|---|---|
+| 1 | Python fundamentals | Beginner |
+| 2 | Data structures | Beginner |
+| 3 | Functions and modules | Intermediate |
+| 4 | Exceptions and file handling | Intermediate |
+| 5 | OOP | Intermediate |
+| 6 | Advanced Python | Advanced |
+| 7 | SQL, APIs, NumPy, Pandas | Data Processing |
+| 8 | ETL and database integration | Data Engineering |
+| 9 | PySpark and Kafka | Big Data |
+| 10 | Production practices and projects | Job Ready |
+
+---
+
+# 45. Final Revision Checklist
+
+## Fundamentals
+
+- [ ] Variables and data types
+- [ ] Operators
+- [ ] Conditions
+- [ ] Loops
+- [ ] Strings
+
+## Data Structures
+
+- [ ] Lists
+- [ ] Tuples
+- [ ] Sets
+- [ ] Dictionaries
+- [ ] Comprehensions
+
+## Programming
+
+- [ ] Functions
+- [ ] Lambda
+- [ ] Modules
+- [ ] Packages
+- [ ] OOP
+
+## Advanced Python
+
+- [ ] Iterators
+- [ ] Generators
+- [ ] Decorators
+- [ ] Regex
+- [ ] Exception handling
+- [ ] Multithreading
+- [ ] Multiprocessing
+- [ ] Async programming
+
+## Data Engineering
+
+- [ ] File handling
+- [ ] CSV and JSON
+- [ ] SQL connectivity
+- [ ] API integration
+- [ ] NumPy
+- [ ] Pandas
+- [ ] ETL
+- [ ] PySpark
+- [ ] Kafka
+- [ ] Logging
+- [ ] Testing
+- [ ] Production practices
+
+---
+
+# 46. Official Documentation
+
+- Python: https://docs.python.org/3/
+- Python Tutorial: https://docs.python.org/3/tutorial/
+- Python Standard Library: https://docs.python.org/3/library/
+- Python PEP 8: https://peps.python.org/pep-0008/
+- NumPy: https://numpy.org/doc/
+- Pandas: https://pandas.pydata.org/docs/
+- PySpark: https://spark.apache.org/docs/latest/api/python/
+- Requests: https://requests.readthedocs.io/
+- Apache Kafka: https://kafka.apache.org/documentation/
+
+---
+
+**Final Note:** Reading notes is only the first step. Write code, execute it, debug errors, solve practice questions and build projects. A Data Engineer should be able to use Python to extract, transform, validate, automate and load data.
