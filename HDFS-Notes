@@ -1,0 +1,1203 @@
+# HDFS (Hadoop Distributed File System) — Complete Notes
+
+**Level:** Beginner to Advanced  
+**Language:** English + Hindi  
+**Purpose:** Data Engineering Learning, Practical Revision and Interview Preparation
+
+---
+
+# 1. What is HDFS?
+
+HDFS stands for **Hadoop Distributed File System**.
+
+It is a distributed file system used to store very large datasets across multiple machines (DataNodes).
+
+Instead of storing all data on one computer, HDFS distributes data across multiple machines in a cluster.
+
+### Simple Explanation
+
+Suppose we have a 1 GB file.
+
+Instead of storing the entire file on one machine, HDFS divides it into blocks and distributes those blocks across multiple DataNodes.
+
+**Hindi:** HDFS ek distributed storage system hai jo large data ko multiple machines par store karta hai.
+
+### Why do we use HDFS?
+
+1. To store huge amounts of data.
+2. To handle large datasets.
+3. To provide fault tolerance through replication.
+4. To support distributed data processing.
+5. To provide scalable storage.
+
+### Real-world examples
+
+- Banking transaction data
+- E-commerce customer data
+- Healthcare records
+- Social media data
+- Log files
+- IoT sensor data
+
+---
+
+# 2. HDFS Architecture
+
+HDFS follows a Master-Slave architecture.
+
+It mainly contains:
+
+1. NameNode
+2. DataNode
+3. Secondary NameNode
+4. HDFS Client
+
+## 2.1 NameNode
+
+NameNode is the master node of HDFS.
+
+It manages filesystem metadata.
+
+Responsibilities:
+
+- Maintains file and directory information.
+- Tracks block locations.
+- Manages file permissions.
+- Manages namespace operations.
+- Monitors DataNodes.
+
+**Important:** NameNode stores metadata, not the actual user file contents.
+
+Example:
+
+When a user requests:
+
+```bash
+hdfs dfs -ls /
+```
+
+The NameNode provides the metadata required to list the directory.
+
+## 2.2 DataNode
+
+DataNodes are worker nodes that store actual HDFS data blocks.
+
+Responsibilities:
+
+- Store data blocks.
+- Read and write blocks.
+- Send heartbeats to NameNode.
+- Send block reports to NameNode.
+- Perform block replication when instructed.
+
+**Hindi:** DataNode actual data blocks ko store karta hai.
+
+## 2.3 Secondary NameNode
+
+Secondary NameNode periodically combines:
+
+- FsImage
+- EditLog
+
+It creates an updated checkpoint of filesystem metadata.
+
+**Important:** Secondary NameNode is NOT a backup NameNode and does not automatically replace the NameNode when it fails.
+
+## 2.4 HDFS Client
+
+HDFS Client allows users and applications to interact with HDFS.
+
+Examples:
+
+```bash
+hdfs dfs -ls /
+hdfs dfs -mkdir /data
+hdfs dfs -put file.txt /data/
+```
+
+---
+
+# 3. HDFS Metadata
+
+Metadata means information about files and directories.
+
+NameNode maintains important metadata using two main files.
+
+## 3.1 FsImage
+
+FsImage is a snapshot of the HDFS filesystem namespace at a particular checkpoint.
+
+It contains information such as:
+
+- Files
+- Directories
+- Permissions
+- Ownership
+- File-to-block mapping
+
+## 3.2 EditLog
+
+EditLog records changes made to the HDFS namespace.
+
+Examples:
+
+- Create file
+- Delete file
+- Rename file
+- Create directory
+- Change permissions
+
+### Difference between FsImage and EditLog
+
+| FsImage | EditLog |
+|---|---|
+| Stores namespace snapshot | Stores namespace changes |
+| Represents a checkpoint | Records transactions after checkpoint |
+| Used during NameNode recovery | Replays namespace changes |
+
+---
+
+# 4. HDFS Blocks
+
+HDFS divides large files into blocks.
+
+A block is the basic storage unit of HDFS.
+
+Example:
+
+Suppose a file is 300 MB and block size is 128 MB.
+
+```text
+File Size = 300 MB
+
+Block 1 = 128 MB
+Block 2 = 128 MB
+Block 3 = 44 MB
+```
+
+Total:
+
+```text
+128 + 128 + 44 = 300 MB
+```
+
+The last block can be smaller than the configured block size.
+
+### Default block size
+
+A commonly used default HDFS block size is 128 MB.
+
+Check block size:
+
+```bash
+hdfs getconf -confKey dfs.blocksize
+```
+
+Output:
+
+```text
+134217728
+```
+
+This represents 128 MB in bytes.
+
+### Why does HDFS use large blocks?
+
+1. Reduces metadata overhead.
+2. Improves large-file processing.
+3. Supports sequential data access.
+4. Helps distributed processing.
+
+### What happens if block size increases?
+
+- Fewer blocks are created for the same file.
+- NameNode metadata requirements decrease.
+- Small-file workloads may become less efficient.
+- Larger units of data are read or processed.
+
+### What happens if block size decreases?
+
+- More blocks are created.
+- NameNode metadata requirements increase.
+- More block management overhead is introduced.
+- Smaller data units can be processed independently.
+
+---
+
+# 5. HDFS Replication
+
+Replication means maintaining multiple copies of each HDFS block.
+
+Example:
+
+Replication Factor = 3
+
+```text
+             Block 1
+                |
+       ---------------------
+       |         |         |
+    Node 1    Node 2    Node 3
+      Copy      Copy      Copy
+```
+
+### Why replication?
+
+- Fault tolerance
+- Data availability
+- Protection against DataNode failure
+
+### Check replication factor
+
+```bash
+hdfs getconf -confKey dfs.replication
+```
+
+### Change replication factor
+
+```bash
+hdfs dfs -setrep 3 /data/file.txt
+```
+
+### Change replication recursively
+
+```bash
+hdfs dfs -setrep -R 2 /data
+```
+
+**Important:** If a cluster has only one DataNode, it cannot maintain three independent physical replicas.
+
+---
+
+# 6. HDFS Read Operation
+
+When a client wants to read a file:
+
+1. Client contacts NameNode.
+2. NameNode provides block locations.
+3. Client connects directly to a suitable DataNode.
+4. DataNode sends the block data.
+5. Client reads all required blocks and reconstructs the file.
+
+**Important:** Actual file data is generally transferred between the client and DataNodes, not through the NameNode.
+
+---
+
+# 7. HDFS Write Operation
+
+When a client writes a file:
+
+1. Client requests file creation from NameNode.
+2. NameNode checks permissions and namespace conditions.
+3. NameNode selects DataNodes for block replicas.
+4. Client sends data to the first DataNode.
+5. DataNodes forward data through the replication pipeline.
+6. Acknowledgements return through the pipeline.
+7. Client completes the write.
+
+Example:
+
+```text
+Client
+  |
+  v
+DataNode 1
+  |
+  v
+DataNode 2
+  |
+  v
+DataNode 3
+```
+
+---
+
+# 8. HDFS Fault Tolerance
+
+Fault tolerance means the system can continue operating when some components fail.
+
+HDFS provides fault tolerance through:
+
+1. Block replication.
+2. DataNode heartbeats.
+3. Block reports.
+4. Automatic re-replication.
+5. Checksums for data integrity.
+
+## Heartbeat
+
+DataNodes periodically send heartbeat messages to NameNode.
+
+This tells NameNode that the DataNode is alive.
+
+If a DataNode stops sending heartbeats for the configured timeout period, NameNode marks it as dead.
+
+## Block Report
+
+DataNodes send block reports to NameNode.
+
+A block report contains information about blocks stored by that DataNode.
+
+## Automatic Re-replication
+
+If a DataNode fails and blocks become under-replicated, NameNode can arrange additional replicas on available DataNodes.
+
+---
+
+# 9. HDFS Safe Mode
+
+Safe Mode is a NameNode state during which namespace modifications are restricted.
+
+During startup, NameNode enters Safe Mode while it checks block availability.
+
+Check Safe Mode:
+
+```bash
+hdfs dfsadmin -safemode get
+```
+
+Enter Safe Mode:
+
+```bash
+hdfs dfsadmin -safemode enter
+```
+
+Leave Safe Mode:
+
+```bash
+hdfs dfsadmin -safemode leave
+```
+
+Wait for Safe Mode to end:
+
+```bash
+hdfs dfsadmin -safemode wait
+```
+
+---
+
+# 10. HDFS Installation and Configuration
+
+Important configuration files:
+
+```text
+$HADOOP_HOME/etc/hadoop/
+```
+
+Main files:
+
+| File | Purpose |
+|---|---|
+| core-site.xml | Default filesystem configuration |
+| hdfs-site.xml | HDFS configuration |
+| hadoop-env.sh | Hadoop environment settings |
+| workers | Worker hostnames for daemon scripts |
+
+## core-site.xml
+
+Example:
+
+```xml
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://localhost:9000</value>
+    </property>
+</configuration>
+```
+
+This specifies the default HDFS NameNode address.
+
+## hdfs-site.xml
+
+Example:
+
+```xml
+<configuration>
+    <property>
+        <name>dfs.replication</name>
+        <value>1</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///home/aboxuser/hadoopdata/namenode</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///home/aboxuser/hadoopdata/datanode</value>
+    </property>
+</configuration>
+```
+
+### Important properties
+
+| Property | Purpose |
+|---|---|
+| fs.defaultFS | Default filesystem URI |
+| dfs.replication | Default replication factor |
+| dfs.blocksize | Default block size |
+| dfs.namenode.name.dir | NameNode metadata storage |
+| dfs.datanode.data.dir | DataNode block storage |
+| dfs.namenode.http-address | NameNode Web UI address |
+
+---
+
+# 11. HDFS Basic Commands
+
+## Check Hadoop version
+
+```bash
+hadoop version
+```
+
+## Check HDFS version
+
+```bash
+hdfs version
+```
+
+## Check running Java processes
+
+```bash
+jps
+```
+
+## Check HDFS address
+
+```bash
+hdfs getconf -confKey fs.defaultFS
+```
+
+## List root directory
+
+```bash
+hdfs dfs -ls /
+```
+
+## Create directory
+
+```bash
+hdfs dfs -mkdir /data
+```
+
+## Create nested directories
+
+```bash
+hdfs dfs -mkdir -p /company/employees
+```
+
+## List recursively
+
+```bash
+hdfs dfs -ls -R /
+```
+
+## Check help
+
+```bash
+hdfs dfs -help
+```
+
+---
+
+# 12. File Upload and Download
+
+## Upload local file to HDFS
+
+```bash
+hdfs dfs -put employees.csv /company/employees/
+```
+
+Alternative:
+
+```bash
+hdfs dfs -copyFromLocal employees.csv /company/employees/
+```
+
+## Download file from HDFS
+
+```bash
+hdfs dfs -get /company/employees/employees.csv ./
+```
+
+Alternative:
+
+```bash
+hdfs dfs -copyToLocal /company/employees/employees.csv ./
+```
+
+## Upload and overwrite
+
+```bash
+hdfs dfs -put -f employees.csv /company/employees/
+```
+
+## Upload multiple files
+
+```bash
+hdfs dfs -put ~/employee_data/*.csv /company/raw/employees/
+```
+
+---
+
+# 13. Read and Inspect HDFS Files
+
+Display complete file:
+
+```bash
+hdfs dfs -cat /company/employees/employees.csv
+```
+
+Display first part of a file:
+
+```bash
+hdfs dfs -head /company/employees/employees.csv
+```
+
+Display last part:
+
+```bash
+hdfs dfs -tail /company/employees/employees.csv
+```
+
+Display file size:
+
+```bash
+hdfs dfs -du -h /company/employees/
+```
+
+Display file metadata:
+
+```bash
+hdfs dfs -stat /company/employees/employees.csv
+```
+
+Display checksum:
+
+```bash
+hdfs dfs -checksum /company/employees/employees.csv
+```
+
+---
+
+# 14. Copy, Move and Rename
+
+Copy file:
+
+```bash
+hdfs dfs -cp /company/employees/a.csv /company/backup/
+```
+
+Move file:
+
+```bash
+hdfs dfs -mv /company/employees/a.csv /company/backup/
+```
+
+Rename file:
+
+```bash
+hdfs dfs -mv /company/employees/old.csv /company/employees/new.csv
+```
+
+Append local data to an HDFS file:
+
+```bash
+hdfs dfs -appendToFile new_data.txt /company/employees/data.txt
+```
+
+Create empty file:
+
+```bash
+hdfs dfs -touchz /company/employees/empty.txt
+```
+
+---
+
+# 15. Delete Commands
+
+Delete file:
+
+```bash
+hdfs dfs -rm /company/employees/file.csv
+```
+
+Delete empty directory:
+
+```bash
+hdfs dfs -rmdir /company/empty
+```
+
+Delete directory recursively:
+
+```bash
+hdfs dfs -rm -r /company/backup
+```
+
+Delete without using Trash:
+
+```bash
+hdfs dfs -rm -skipTrash /company/file.csv
+```
+
+**Warning:** Deletion without Trash can make recovery difficult or impossible.
+
+---
+
+# 16. HDFS Permissions
+
+HDFS permissions follow a model similar to Linux permissions.
+
+Three permission categories:
+
+1. Owner
+2. Group
+3. Others
+
+Three basic permissions:
+
+- r = Read
+- w = Write
+- x = Execute / directory access
+
+Example:
+
+```text
+-rw-r--r--
+```
+
+Meaning:
+
+- Owner: Read + Write
+- Group: Read
+- Others: Read
+
+## chmod
+
+Change permissions:
+
+```bash
+hdfs dfs -chmod 755 /company
+```
+
+Recursive permission change:
+
+```bash
+hdfs dfs -chmod -R 755 /company
+```
+
+## chown
+
+Change owner:
+
+```bash
+hdfs dfs -chown aboxuser /company
+```
+
+Change owner and group:
+
+```bash
+hdfs dfs -chown aboxuser:supergroup /company
+```
+
+## chgrp
+
+Change group:
+
+```bash
+hdfs dfs -chgrp supergroup /company
+```
+
+## Permission values
+
+| Number | Permission |
+|---|---|
+| 7 | Read + Write + Execute |
+| 6 | Read + Write |
+| 5 | Read + Execute |
+| 4 | Read only |
+| 0 | No permission |
+
+Example:
+
+```bash
+hdfs dfs -chmod 640 file.txt
+```
+
+Owner = Read + Write  
+Group = Read  
+Others = No permission
+
+---
+
+# 17. HDFS Storage and Cluster Monitoring
+
+## Check cluster report
+
+```bash
+hdfs dfsadmin -report
+```
+
+Displays:
+
+- Total storage capacity
+- Used storage
+- Remaining storage
+- Live DataNodes
+- Dead DataNodes
+
+## Check filesystem usage
+
+```bash
+hdfs dfs -df -h /
+```
+
+## Check directory size
+
+```bash
+hdfs dfs -du -h /company
+```
+
+## Count files and directories
+
+```bash
+hdfs dfs -count /company
+```
+
+## Check filesystem health
+
+```bash
+hdfs fsck /
+```
+
+## Inspect file blocks
+
+```bash
+hdfs fsck /company/employees/file.csv -files -blocks -locations
+```
+
+## Check block size
+
+```bash
+hdfs getconf -confKey dfs.blocksize
+```
+
+---
+
+# 18. NameNode Web UI
+
+Default NameNode Web UI:
+
+```text
+http://localhost:9870
+```
+
+Useful information:
+
+- HDFS overview
+- Live DataNodes
+- Dead DataNodes
+- Storage capacity
+- Block information
+- Filesystem browsing
+- Cluster status
+
+If accessing from another machine, use the VM's reachable IP address instead of localhost.
+
+---
+
+# 19. Advanced HDFS Commands
+
+## 19.1 Replication
+
+Set replication:
+
+```bash
+hdfs dfs -setrep 3 /data/file.txt
+```
+
+Set replication recursively:
+
+```bash
+hdfs dfs -setrep -R 2 /data
+```
+
+## 19.2 Extended Attributes
+
+Read attributes:
+
+```bash
+hdfs dfs -getfattr -d /data/file.txt
+```
+
+Set an attribute:
+
+```bash
+hdfs dfs -setfattr -n user.comment -v test /data/file.txt
+```
+
+## 19.3 Snapshots
+
+Enable snapshots:
+
+```bash
+hdfs dfsadmin -allowSnapshot /company
+```
+
+Create snapshot:
+
+```bash
+hdfs dfs -createSnapshot /company snap1
+```
+
+List snapshottable directories:
+
+```bash
+hdfs lsSnapshottableDir
+```
+
+List snapshots:
+
+```bash
+hdfs lsSnapshot /company
+```
+
+Access snapshot files:
+
+```bash
+hdfs dfs -ls /company/.snapshot/snap1/
+```
+
+Delete snapshot:
+
+```bash
+hdfs dfs -deleteSnapshot /company snap1
+```
+
+Compare snapshots:
+
+```bash
+hdfs snapshotDiff /company snap1 snap2
+```
+
+Compare snapshot with current live directory:
+
+```bash
+hdfs snapshotDiff /company snap1 .
+```
+
+## 19.4 Cache Administration
+
+List cache directives:
+
+```bash
+hdfs cacheadmin -listDirectives
+```
+
+Show cache help:
+
+```bash
+hdfs cacheadmin -help
+```
+
+Create cache pool:
+
+```bash
+hdfs cacheadmin -addPool employee_pool
+```
+
+Add cache directive:
+
+```bash
+hdfs cacheadmin -addDirective \
+-path /company/employees \
+-pool employee_pool \
+-replication 1
+```
+
+Remove cache directives for a path:
+
+```bash
+hdfs cacheadmin -removeDirectives -path /company/employees
+```
+
+**Note:** Caching requires DataNode memory caching configuration and suitable cache capacity.
+
+---
+
+# 20. HDFS Service Management
+
+Start HDFS:
+
+```bash
+start-dfs.sh
+```
+
+Stop HDFS:
+
+```bash
+stop-dfs.sh
+```
+
+Start NameNode:
+
+```bash
+hdfs --daemon start namenode
+```
+
+Stop NameNode:
+
+```bash
+hdfs --daemon stop namenode
+```
+
+Start DataNode:
+
+```bash
+hdfs --daemon start datanode
+```
+
+Stop DataNode:
+
+```bash
+hdfs --daemon stop datanode
+```
+
+Start Secondary NameNode:
+
+```bash
+hdfs --daemon start secondarynamenode
+```
+
+Stop Secondary NameNode:
+
+```bash
+hdfs --daemon stop secondarynamenode
+```
+
+Check processes:
+
+```bash
+jps
+```
+
+**Important:** Never run `hdfs namenode -format` on an existing cluster just to start HDFS. Formatting can destroy existing namespace metadata.
+
+---
+
+# 21. Real-World Data Engineering HDFS Directory Structure
+
+A data engineer commonly organizes data into different zones.
+
+Example:
+
+```text
+/company/
+│
+├── raw/
+│   ├── employees/
+│   ├── customers/
+│   └── transactions/
+│
+├── processed/
+│   ├── employees/
+│   ├── customers/
+│   └── transactions/
+│
+├── curated/
+│   ├── reports/
+│   └── analytics/
+│
+├── archive/
+│   ├── 2025/
+│   └── 2026/
+│
+└── backup/
+```
+
+### Meaning
+
+| Directory | Purpose |
+|---|---|
+| raw | Original source data |
+| processed | Cleaned and transformed data |
+| curated | Business-ready datasets |
+| archive | Historical data |
+| backup | Backup copies |
+
+### Create the structure
+
+```bash
+hdfs dfs -mkdir -p /company/raw/employees
+hdfs dfs -mkdir -p /company/raw/customers
+hdfs dfs -mkdir -p /company/raw/transactions
+
+hdfs dfs -mkdir -p /company/processed
+hdfs dfs -mkdir -p /company/curated
+hdfs dfs -mkdir -p /company/archive
+hdfs dfs -mkdir -p /company/backup
+```
+
+Verify:
+
+```bash
+hdfs dfs -ls -R /company
+```
+
+---
+
+# 22. Important HDFS Interview Questions
+
+### Q1. What is HDFS?
+
+HDFS is a distributed file system used to store large datasets across multiple machines.
+
+### Q2. What is NameNode?
+
+NameNode manages filesystem metadata, including file names, permissions, and block locations.
+
+### Q3. What is DataNode?
+
+DataNode stores actual HDFS data blocks.
+
+### Q4. What is Secondary NameNode?
+
+It periodically creates checkpoints by combining FsImage and EditLog. It is not a standby NameNode.
+
+### Q5. What is an HDFS block?
+
+A block is the basic storage unit into which HDFS divides files.
+
+### Q6. What is replication?
+
+Replication maintains multiple copies of HDFS blocks for fault tolerance.
+
+### Q7. What happens when a DataNode fails?
+
+NameNode detects the failure through missing heartbeats and arranges replication of under-replicated blocks when possible.
+
+### Q8. What is Safe Mode?
+
+Safe Mode is a NameNode state in which namespace modifications are restricted while block availability is checked.
+
+### Q9. What is FsImage?
+
+FsImage is a checkpoint of the HDFS filesystem namespace.
+
+### Q10. What is EditLog?
+
+EditLog records changes to the filesystem namespace.
+
+### Q11. What is the difference between `-put` and `-get`?
+
+`-put` uploads local files into HDFS.
+
+`-get` downloads files from HDFS to the local filesystem.
+
+### Q12. What is the difference between `-cp` and `-mv`?
+
+`-cp` copies a file and keeps the source.
+
+`-mv` moves or renames a file.
+
+### Q13. What is data locality?
+
+Data locality means moving computation close to where data is stored to reduce unnecessary data transfer.
+
+### Q14. What is a snapshot?
+
+A snapshot is a read-only point-in-time view of an HDFS directory.
+
+### Q15. What is rack awareness?
+
+Rack awareness is an HDFS block placement strategy that considers network rack topology to improve fault tolerance and network efficiency.
+
+### Q16. What happens if the NameNode fails?
+
+In a simple non-HA cluster, HDFS namespace operations become unavailable until the NameNode is recovered. In an HA cluster, a configured Standby NameNode can take over.
+
+### Q17. Why does HDFS use large blocks?
+
+Large blocks reduce metadata overhead and are suitable for large sequential data processing.
+
+### Q18. What is the difference between HDFS and a traditional filesystem?
+
+Traditional filesystems generally manage storage on one machine, whereas HDFS distributes file blocks across multiple machines.
+
+---
+
+# 23. Practical Revision Checklist
+
+Use this checklist to track your HDFS learning.
+
+## Concepts
+
+- [ ] What is HDFS?
+- [ ] HDFS architecture
+- [ ] NameNode
+- [ ] DataNode
+- [ ] Secondary NameNode
+- [ ] FsImage and EditLog
+- [ ] HDFS blocks
+- [ ] Replication
+- [ ] Read operation
+- [ ] Write operation
+- [ ] Heartbeat
+- [ ] Block report
+- [ ] Safe Mode
+- [ ] Fault tolerance
+- [ ] Rack awareness
+- [ ] Data locality
+- [ ] Snapshots
+- [ ] Caching
+
+## Practical commands
+
+- [ ] Create HDFS directories
+- [ ] Upload files
+- [ ] Download files
+- [ ] Read HDFS files
+- [ ] Copy and move files
+- [ ] Delete files
+- [ ] Change permissions
+- [ ] Check replication
+- [ ] Inspect blocks
+- [ ] Check cluster health
+- [ ] Create snapshots
+- [ ] Compare snapshots
+- [ ] Understand cache directives
+
+---
+
+# 24. Final Revision Summary
+
+Remember these important points:
+
+1. HDFS is used for distributed storage.
+2. NameNode manages metadata.
+3. DataNode stores actual data blocks.
+4. Secondary NameNode performs checkpointing.
+5. HDFS divides files into blocks.
+6. Replication provides fault tolerance.
+7. FsImage stores a namespace checkpoint.
+8. EditLog stores namespace changes.
+9. Heartbeats monitor DataNode health.
+10. Block reports provide block information.
+11. Safe Mode restricts namespace modifications.
+12. Snapshots provide point-in-time directory views.
+13. Cache administration manages selected blocks in memory.
+14. Data locality improves distributed processing efficiency.
+15. HDFS is commonly used with YARN, MapReduce, Hive, and Spark.
+
+**Learning Goal:** Understand not only HDFS commands but also why and when Data Engineers use them in real-world projects.
+
+---
+
+**Official Documentation:**  
+https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html
+
+**Version:** Hadoop 3.5.0 learning notes  
+**Last Updated:** November 2026
+
