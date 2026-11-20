@@ -1,0 +1,1745 @@
+# Linux – 
+
+## 1. What is Linux?
+
+### Definition
+
+Linux is an open-source, Unix-like operating system that manages computer hardware and software resources.
+
+It acts as an interface between the user and computer hardware.
+
+**Simple Hindi:**
+
+Linux ek Operating System hai jo computer ke hardware aur software ko manage karta hai.
+
+We use Linux to:
+- Manage files and directories.
+- Run applications.
+- Manage servers.
+- Configure networks.
+- Manage users and permissions.
+- Run scripts and commands.
+- Deploy applications.
+- Manage Big Data technologies.
+
+### Examples of Linux Distributions
+
+| Distribution | Usage |
+|---|---|
+| Ubuntu | Beginners, development and servers |
+| Debian | Stable servers |
+| Red Hat Enterprise Linux (RHEL) | Enterprise servers |
+| CentOS Stream | Enterprise Linux development |
+| Fedora | Developers and new technologies |
+| Kali Linux | Security testing |
+| Amazon Linux | AWS cloud servers |
+
+**Important:** Ubuntu is a Linux distribution. Linux itself refers to the kernel.
+
+---
+
+## 2. What is an Operating System?
+
+An Operating System (OS) is system software that manages computer hardware and provides services to applications.
+
+### Main Responsibilities
+
+1. Process Management.
+2. Memory Management.
+3. File Management.
+4. Device Management.
+5. Security Management.
+6. Network Management.
+
+### Examples
+
+- Windows
+- Linux
+- macOS
+- Android
+
+### Linux vs Windows
+
+| Linux | Windows |
+|---|---|
+| Open source | Proprietary |
+| Commonly used in servers | Commonly used in desktops |
+| Strong command-line tools | GUI-focused |
+| Highly customizable | Comparatively less customizable |
+| Many distributions | Different Windows editions |
+
+---
+
+## 3. Linux Architecture
+
+Linux architecture consists of five important layers.
+
+### Layers
+
+1. Hardware
+2. Kernel
+3. System Libraries
+4. Shell
+5. Applications and Utilities
+
+### Architecture Diagram
+
+```text
+          USER
+            |
+      APPLICATIONS
+            |
+          SHELL
+            |
+     SYSTEM LIBRARIES
+            |
+         KERNEL
+            |
+         HARDWARE
+```
+
+### 3.1 Hardware
+
+Physical components of a computer.
+
+Examples:
+- CPU
+- RAM
+- Hard Disk
+- Keyboard
+- Network Card
+
+### 3.2 Kernel
+
+The Kernel is the core component of Linux.
+
+It manages:
+- CPU.
+- Memory.
+- Processes.
+- Devices.
+- File systems.
+- Networking.
+
+**Hindi:** Kernel Linux ka main part hai jo hardware aur software ke beech communication manage karta hai.
+
+### 3.3 System Libraries
+
+System libraries provide functions that applications use to interact with the kernel.
+
+Example: glibc.
+
+### 3.4 Shell
+
+Shell is a command interpreter that accepts user commands and executes them.
+
+Examples:
+- Bash
+- Zsh
+- Fish
+
+### 3.5 Applications
+
+Programs that run on Linux.
+
+Examples:
+- Python
+- MySQL
+- Hadoop
+- Apache Spark
+- Nginx
+
+---
+
+## 4. Linux File System Hierarchy
+
+Linux uses a hierarchical file system.
+
+The root directory `/` is the starting point of the entire directory structure.
+
+### Important Directories
+
+| Directory | Purpose |
+|---|---|
+| `/` | Root directory |
+| `/home` | User home directories |
+| `/root` | Root user's home directory |
+| `/etc` | Configuration files |
+| `/var` | Logs and variable data |
+| `/var/log` | System and application logs |
+| `/bin` | Essential user commands |
+| `/sbin` | System administration commands |
+| `/usr` | User applications and shared resources |
+| `/tmp` | Temporary files |
+| `/dev` | Device files |
+| `/proc` | Process and kernel information |
+| `/boot` | Boot-related files |
+| `/opt` | Optional software |
+| `/mnt` | Temporary mount points |
+| `/media` | Removable media mount points |
+
+### Example
+
+```text
+/
+├── home
+│   └── vboxuser
+│       ├── Documents
+│       ├── Downloads
+│       └── Projects
+│
+├── etc
+├── var
+│   └── log
+├── usr
+├── tmp
+├── boot
+└── dev
+```
+
+**Remember:** `/` and `/root` are different.
+
+- `/` = Root of the entire file system.
+- `/root` = Home directory of the root user.
+
+---
+
+## 5. Basic Linux Commands
+
+### 5.1 pwd
+
+Displays the current working directory.
+
+```bash
+pwd
+```
+
+Example output:
+
+```text
+/home/vboxuser
+```
+
+### 5.2 ls
+
+Lists files and directories.
+
+```bash
+ls
+```
+
+Useful options:
+
+```bash
+ls -l
+ls -a
+ls -lh
+ls -la
+```
+
+- `-l` = Long listing.
+- `-a` = Show hidden files.
+- `-h` = Human-readable sizes.
+
+### 5.3 cd
+
+Changes the current directory.
+
+```bash
+cd Documents
+cd ..
+cd /
+cd ~
+```
+
+- `cd ..` = Parent directory.
+- `cd /` = Root directory.
+- `cd ~` = Home directory.
+
+### 5.4 clear
+
+Clears terminal output.
+
+```bash
+clear
+```
+
+### 5.5 whoami
+
+Displays the current username.
+
+```bash
+whoami
+```
+
+### 5.6 hostname
+
+Displays the system hostname.
+
+```bash
+hostname
+```
+
+### 5.7 date
+
+Displays current date and time.
+
+```bash
+date
+```
+
+### 5.8 cal
+
+Displays a calendar.
+
+```bash
+cal
+```
+
+---
+
+## 6. File and Directory Management
+
+### 6.1 mkdir
+
+Creates a directory.
+
+```bash
+mkdir project
+```
+
+Create nested directories:
+
+```bash
+mkdir -p project/python/scripts
+```
+
+### 6.2 touch
+
+Creates an empty file.
+
+```bash
+touch notes.txt
+```
+
+### 6.3 cp
+
+Copies files and directories.
+
+```bash
+cp file.txt backup.txt
+```
+
+Copy a directory:
+
+```bash
+cp -r project backup_project
+```
+
+### 6.4 mv
+
+Moves or renames files.
+
+Rename:
+
+```bash
+mv old.txt new.txt
+```
+
+Move:
+
+```bash
+mv file.txt Documents/
+```
+
+### 6.5 rm
+
+Removes files.
+
+```bash
+rm file.txt
+```
+
+Remove a directory and its contents:
+
+```bash
+rm -r project
+```
+
+**Warning:** `rm -rf` can permanently delete large amounts of data. Always verify the path before using it.
+
+### 6.6 rmdir
+
+Removes an empty directory.
+
+```bash
+rmdir empty_folder
+```
+
+---
+
+## 7. Reading and Editing Files
+
+### 7.1 cat
+
+Displays file content.
+
+```bash
+cat notes.txt
+```
+
+Create and write a file:
+
+```bash
+cat > notes.txt
+```
+
+Press `Ctrl + D` to finish input.
+
+### 7.2 less
+
+Reads large files page by page.
+
+```bash
+less application.log
+```
+
+Useful keys:
+- `Space` = Next page.
+- `b` = Previous page.
+- `/error` = Search error.
+- `q` = Quit.
+
+### 7.3 head
+
+Displays the first 10 lines by default.
+
+```bash
+head file.txt
+head -n 5 file.txt
+```
+
+### 7.4 tail
+
+Displays the last 10 lines by default.
+
+```bash
+tail file.txt
+tail -n 20 file.txt
+```
+
+### 7.5 tail -f
+
+Continuously monitors a log file.
+
+```bash
+tail -f application.log
+```
+
+Useful for monitoring running applications and Hadoop jobs.
+
+### 7.6 nano
+
+Opens a text editor.
+
+```bash
+nano notes.txt
+```
+
+### 7.7 vim
+
+Opens Vim editor.
+
+```bash
+vim notes.txt
+```
+
+Important Vim commands:
+
+| Command | Purpose |
+|---|---|
+| `i` | Insert mode |
+| `Esc` | Command mode |
+| `:w` | Save |
+| `:q` | Quit |
+| `:wq` | Save and quit |
+| `:q!` | Quit without saving |
+| `dd` | Delete a line |
+| `yy` | Copy a line |
+| `p` | Paste |
+
+---
+
+## 8. Linux File Permissions
+
+Linux uses permissions to control who can read, write, and execute files.
+
+### Three Types of Permissions
+
+| Permission | Symbol | Meaning |
+|---|---|---|
+| Read | r | Read file contents |
+| Write | w | Modify file |
+| Execute | x | Execute a file or search a directory |
+
+### Three Permission Groups
+
+1. Owner – File owner.
+2. Group – Users belonging to the file's group.
+3. Others – All other users.
+
+### Example
+
+```text
+-rwxr-xr--
+```
+
+Meaning:
+
+- Owner: rwx
+- Group: r-x
+- Others: r--
+
+### Permission Numbers
+
+| Permission | Value |
+|---|---|
+| Read (r) | 4 |
+| Write (w) | 2 |
+| Execute (x) | 1 |
+
+Examples:
+
+| Number | Permission |
+|---|---|
+| 7 | rwx |
+| 6 | rw- |
+| 5 | r-x |
+| 4 | r-- |
+| 0 | --- |
+
+### chmod
+
+Changes file permissions.
+
+```bash
+chmod 755 script.sh
+chmod 644 notes.txt
+chmod +x script.sh
+```
+
+### chown
+
+Changes file ownership.
+
+```bash
+sudo chown user file.txt
+```
+
+Change owner and group:
+
+```bash
+sudo chown user:group file.txt
+```
+
+### chgrp
+
+Changes group ownership.
+
+```bash
+sudo chgrp developers file.txt
+```
+
+---
+
+## 9. Linux Users and Groups
+
+Linux supports multiple users.
+
+Each user can have different permissions.
+
+### Important Commands
+
+Display current user:
+
+```bash
+whoami
+```
+
+Display logged-in users:
+
+```bash
+who
+```
+
+Display user information:
+
+```bash
+id
+```
+
+Create a user:
+
+```bash
+sudo adduser ankit
+```
+
+Delete a user:
+
+```bash
+sudo deluser ankit
+```
+
+Create a group:
+
+```bash
+sudo groupadd developers
+```
+
+Add a user to a group:
+
+```bash
+sudo usermod -aG developers ankit
+```
+
+Display groups:
+
+```bash
+groups
+```
+
+**Important:** `sudo` allows an authorized user to execute commands with elevated privileges.
+
+---
+
+## 10. Package Management in Ubuntu
+
+Package management is used to install, update, and remove software.
+
+Ubuntu uses the APT package manager.
+
+### Update package information
+
+```bash
+sudo apt update
+```
+
+### Upgrade installed packages
+
+```bash
+sudo apt upgrade
+```
+
+### Install software
+
+```bash
+sudo apt install nginx
+```
+
+### Remove software
+
+```bash
+sudo apt remove nginx
+```
+
+### Search packages
+
+```bash
+apt search python3
+```
+
+### Display package information
+
+```bash
+apt show nginx
+```
+
+### Remove unnecessary dependencies
+
+```bash
+sudo apt autoremove
+```
+
+---
+
+## 11. Process Management
+
+A Process is a running instance of a program.
+
+Example:
+When you run Python:
+
+```bash
+python3 app.py
+```
+
+Linux creates a process to execute the program.
+
+### Important Commands
+
+Display processes:
+
+```bash
+ps
+```
+
+Display all processes:
+
+```bash
+ps aux
+```
+
+Display process tree:
+
+```bash
+pstree
+```
+
+Monitor processes:
+
+```bash
+top
+```
+
+Interactive process monitoring:
+
+```bash
+htop
+```
+
+Find a process:
+
+```bash
+pgrep python
+```
+
+Find process details:
+
+```bash
+ps aux | grep python
+```
+
+Kill a process:
+
+```bash
+kill PID
+```
+
+Forcefully terminate a process:
+
+```bash
+kill -9 PID
+```
+
+**Note:** Prefer normal termination first. Use `kill -9` only when necessary.
+
+### Background Process
+
+Run a command in the background:
+
+```bash
+python3 app.py &
+```
+
+Display background jobs:
+
+```bash
+jobs
+```
+
+Bring a job to the foreground:
+
+```bash
+fg
+```
+
+---
+
+## 12. Linux Services and systemd
+
+A Service is a background program that provides functionality to the system.
+
+Examples:
+- SSH
+- Nginx
+- MySQL
+- Hadoop services
+
+Linux commonly uses systemd to manage services.
+
+### Check Service Status
+
+```bash
+sudo systemctl status ssh
+```
+
+### Start a Service
+
+```bash
+sudo systemctl start ssh
+```
+
+### Stop a Service
+
+```bash
+sudo systemctl stop ssh
+```
+
+### Restart a Service
+
+```bash
+sudo systemctl restart ssh
+```
+
+### Enable Service at Boot
+
+```bash
+sudo systemctl enable ssh
+```
+
+### Disable Service at Boot
+
+```bash
+sudo systemctl disable ssh
+```
+
+### List Running Services
+
+```bash
+systemctl list-units --type=service --state=running
+```
+
+---
+
+## 13. Linux Networking Commands
+
+Networking commands help troubleshoot connectivity and inspect network configuration.
+
+### 13.1 ip addr
+
+Displays network interfaces and IP addresses.
+
+```bash
+ip addr
+```
+
+### 13.2 ip route
+
+Displays routing information.
+
+```bash
+ip route
+```
+
+### 13.3 ping
+
+Tests network connectivity.
+
+```bash
+ping google.com
+```
+
+Stop using:
+
+```text
+Ctrl + C
+```
+
+### 13.4 hostname -I
+
+Displays assigned IP addresses.
+
+```bash
+hostname -I
+```
+
+### 13.5 ss
+
+Displays socket and network connection information.
+
+```bash
+ss -tuln
+```
+
+### 13.6 curl
+
+Sends HTTP requests and retrieves content.
+
+```bash
+curl https://example.com
+```
+
+Check only HTTP headers:
+
+```bash
+curl -I https://example.com
+```
+
+### 13.7 wget
+
+Downloads files from the internet.
+
+```bash
+wget https://example.com/file.zip
+```
+
+### 13.8 traceroute
+
+Displays the network path taken by packets.
+
+```bash
+traceroute google.com
+```
+
+Install if missing:
+
+```bash
+sudo apt install traceroute
+```
+
+---
+
+## 14. Linux Storage and Disk Management
+
+Linux provides tools to inspect disk space and storage devices.
+
+### 14.1 df
+
+Displays file system disk usage.
+
+```bash
+df -h
+```
+
+### 14.2 du
+
+Displays directory and file sizes.
+
+```bash
+du -sh /home/vboxuser
+```
+
+### 14.3 lsblk
+
+Displays block devices.
+
+```bash
+lsblk
+```
+
+### 14.4 fdisk
+
+Manages disk partitions.
+
+```bash
+sudo fdisk -l
+```
+
+### 14.5 mount
+
+Mounts a file system.
+
+```bash
+sudo mount /dev/sdb1 /mnt
+```
+
+### 14.6 umount
+
+Unmounts a file system.
+
+```bash
+sudo umount /mnt
+```
+
+**Important:** Never format or partition a disk without confirming the device name and its contents.
+
+---
+
+## 15. Linux Logs and Monitoring
+
+Logs contain information about system and application activities.
+
+They help identify errors and troubleshoot problems.
+
+### Important Log Directory
+
+```text
+/var/log/
+```
+
+### Useful Commands
+
+Display system logs:
+
+```bash
+sudo journalctl
+```
+
+Display recent logs:
+
+```bash
+sudo journalctl -n 50
+```
+
+Monitor logs continuously:
+
+```bash
+sudo journalctl -f
+```
+
+Display service logs:
+
+```bash
+sudo journalctl -u ssh
+```
+
+Display authentication logs on Ubuntu:
+
+```bash
+sudo tail -f /var/log/auth.log
+```
+
+Search for errors:
+
+```bash
+grep -i "error" application.log
+```
+
+Search for failed login events:
+
+```bash
+sudo grep -i "failed" /var/log/auth.log
+```
+
+---
+
+## 16. Linux Pipes and Redirection
+
+Pipes and redirection are used to control command input and output.
+
+### 16.1 Pipe (|)
+
+Sends the output of one command as input to another command.
+
+Example:
+
+```bash
+ps aux | grep python
+```
+
+Explanation:
+- `ps aux` displays processes.
+- `grep python` searches for Python processes.
+
+### 16.2 Output Redirection (>)
+
+Writes command output to a file, replacing its previous contents.
+
+```bash
+ls > files.txt
+```
+
+### 16.3 Append Redirection (>>)
+
+Appends output to an existing file.
+
+```bash
+date >> log.txt
+```
+
+### 16.4 Input Redirection (<)
+
+Takes input from a file.
+
+```bash
+sort < names.txt
+```
+
+### 16.5 Error Redirection (2>)
+
+Redirects standard error to a file.
+
+```bash
+ls /wrong-path 2> error.log
+```
+
+### 16.6 Redirect Both Output and Errors
+
+```bash
+command > output.log 2>&1
+```
+
+---
+
+## 17. Linux Search Commands
+
+### 17.1 find
+
+Searches for files and directories.
+
+```bash
+find /home -name "notes.txt"
+```
+
+Find all Python files:
+
+```bash
+find . -name "*.py"
+```
+
+Find files larger than 100 MB:
+
+```bash
+find /home -type f -size +100M
+```
+
+### 17.2 grep
+
+Searches for text patterns.
+
+```bash
+grep "error" application.log
+```
+
+Case-insensitive search:
+
+```bash
+grep -i "error" application.log
+```
+
+Search recursively:
+
+```bash
+grep -r "database" project/
+```
+
+Display line numbers:
+
+```bash
+grep -n "error" application.log
+```
+
+### 17.3 locate
+
+Finds files using an indexed database.
+
+```bash
+locate notes.txt
+```
+
+---
+
+## 18. Hard Links and Soft Links
+
+Links allow multiple directory entries to refer to file data or another file path.
+
+### Hard Link
+
+A hard link is another directory entry referring to the same inode.
+
+Create:
+
+```bash
+ln original.txt hardlink.txt
+```
+
+Characteristics:
+- Shares the same inode.
+- Data remains accessible through another hard link if one name is deleted.
+- Normally cannot cross file systems.
+- Directories are generally not hard-linked by ordinary users.
+
+### Soft Link (Symbolic Link)
+
+A soft link stores a path pointing to another file or directory.
+
+Create:
+
+```bash
+ln -s original.txt softlink.txt
+```
+
+Characteristics:
+- Has its own inode.
+- Points to a path.
+- Can cross file systems.
+- Can become broken if the target is moved or deleted.
+
+### Difference
+
+| Hard Link | Soft Link |
+|---|---|
+| Same inode | Different inode |
+| Refers to file data | Refers to a path |
+| Usually cannot cross file systems | Can cross file systems |
+| Survives deletion of another hard-link name | May become broken if target disappears |
+
+---
+
+## 19. Bash Scripting
+
+Bash scripting allows us to automate repetitive Linux tasks.
+
+A Bash script contains commands executed in sequence.
+
+### Create a Script
+
+```bash
+nano hello.sh
+```
+
+Write:
+
+```bash
+#!/bin/bash
+
+echo "Hello Linux"
+echo "Welcome to Data Engineering"
+```
+
+Save the file.
+
+Give execution permission:
+
+```bash
+chmod +x hello.sh
+```
+
+Run:
+
+```bash
+./hello.sh
+```
+
+### Variables
+
+```bash
+#!/bin/bash
+
+name="Ankit"
+
+echo "Hello $name"
+```
+
+### User Input
+
+```bash
+#!/bin/bash
+
+echo "Enter your name:"
+read name
+
+echo "Welcome $name"
+```
+
+### If-Else
+
+```bash
+#!/bin/bash
+
+number=10
+
+if [ "$number" -gt 5 ]; then
+    echo "Number is greater than 5"
+else
+    echo "Number is not greater than 5"
+fi
+```
+
+### For Loop
+
+```bash
+#!/bin/bash
+
+for i in 1 2 3 4 5
+do
+    echo "Number: $i"
+done
+```
+
+### While Loop
+
+```bash
+#!/bin/bash
+
+i=1
+
+while [ "$i" -le 5 ]
+do
+    echo "$i"
+    i=$((i+1))
+done
+```
+
+### Functions
+
+```bash
+#!/bin/bash
+
+greet() {
+    echo "Welcome to Linux"
+}
+
+greet
+```
+
+---
+
+## 20. Cron Jobs and Task Scheduling
+
+Cron is used to schedule commands or scripts to run automatically at specified times.
+
+### Open Cron Configuration
+
+```bash
+crontab -e
+```
+
+### Cron Syntax
+
+```text
+* * * * * command
+| | | | |
+| | | | └── Day of week
+| | | └──── Month
+| | └────── Day of month
+| └──────── Hour
+└────────── Minute
+```
+
+### Examples
+
+Run a script every day at 10 AM:
+
+```bash
+0 10 * * * /home/vboxuser/backup.sh
+```
+
+Run every 5 minutes:
+
+```bash
+*/5 * * * * /home/vboxuser/backup.sh
+```
+
+List scheduled jobs:
+
+```bash
+crontab -l
+```
+
+Remove scheduled jobs:
+
+```bash
+crontab -r
+```
+
+---
+
+## 21. SSH – Secure Shell
+
+SSH is a network protocol used to securely connect to another computer over a network.
+
+Example:
+
+```bash
+ssh username@server_ip
+```
+
+Example:
+
+```bash
+ssh vboxuser@192.168.1.100
+```
+
+### Common SSH Commands
+
+Check SSH service:
+
+```bash
+sudo systemctl status ssh
+```
+
+Start SSH:
+
+```bash
+sudo systemctl start ssh
+```
+
+Restart SSH:
+
+```bash
+sudo systemctl restart ssh
+```
+
+Copy files using SCP:
+
+```bash
+scp file.txt username@server_ip:/home/username/
+```
+
+Copy from remote server:
+
+```bash
+scp username@server_ip:/home/username/file.txt .
+```
+
+### SSH Uses
+
+- Remote server management.
+- Application deployment.
+- File transfer.
+- Cloud server administration.
+- Hadoop cluster administration.
+
+---
+
+## 22. Linux Environment Variables
+
+Environment variables store configuration values used by applications and processes.
+
+### Display Variables
+
+```bash
+printenv
+```
+
+Display PATH:
+
+```bash
+echo $PATH
+```
+
+### Create a Variable
+
+```bash
+export PROJECT_NAME="DataEngineering"
+```
+
+Display:
+
+```bash
+echo $PROJECT_NAME
+```
+
+### Important Environment Variables
+
+| Variable | Purpose |
+|---|---|
+| PATH | Directories searched for executable commands |
+| HOME | User home directory |
+| USER | Current username |
+| SHELL | Current shell |
+| JAVA_HOME | Java installation directory |
+
+### Configure JAVA_HOME
+
+Add a suitable configuration to `~/.bashrc`:
+
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+```
+
+Apply changes:
+
+```bash
+source ~/.bashrc
+```
+
+The JAVA_HOME path must match the actual Java installation.
+
+---
+
+## 23. Linux in Data Engineering
+
+Linux is extremely important in Data Engineering because many Big Data tools run on Linux servers.
+
+### Hadoop
+
+Linux is commonly used to install and manage Hadoop clusters.
+
+Commands:
+
+```bash
+start-dfs.sh
+start-yarn.sh
+```
+
+### HDFS
+
+Used to manage distributed data storage.
+
+```bash
+hdfs dfs -ls /
+hdfs dfs -mkdir /data
+hdfs dfs -put file.csv /data/
+```
+
+### YARN
+
+Used to manage cluster resources and applications.
+
+```bash
+yarn application -list
+```
+
+### Hive
+
+Hive provides SQL-based data querying.
+
+Example:
+
+```bash
+beeline -u jdbc:hive2://localhost:10000
+```
+
+### Kafka
+
+Kafka runs as a distributed event-streaming platform.
+
+Linux is used to start, stop, and monitor Kafka services.
+
+### Spark
+
+Spark applications can be executed using Linux commands.
+
+```bash
+spark-submit application.py
+```
+
+### Why Data Engineers Need Linux
+
+1. Managing servers.
+2. Installing Big Data tools.
+3. Executing Python scripts.
+4. Managing files and directories.
+5. Monitoring logs.
+6. Managing processes.
+7. Scheduling data pipelines.
+8. Connecting to remote servers.
+9. Troubleshooting application failures.
+10. Automating ETL workflows.
+
+---
+
+## 24. Important Linux Commands – Quick Reference
+
+| Command | Purpose |
+|---|---|
+| pwd | Current directory |
+| ls | List files |
+| cd | Change directory |
+| mkdir | Create directory |
+| touch | Create file |
+| cp | Copy files |
+| mv | Move or rename |
+| rm | Delete files |
+| cat | Display file |
+| less | Read large files |
+| head | First lines |
+| tail | Last lines |
+| grep | Search text |
+| find | Search files |
+| chmod | Change permissions |
+| chown | Change ownership |
+| whoami | Current user |
+| ps | Process information |
+| top | Monitor processes |
+| kill | Terminate process |
+| systemctl | Manage services |
+| df -h | Disk space |
+| du -sh | Directory size |
+| free -h | RAM information |
+| ip addr | Network addresses |
+| ping | Test connectivity |
+| curl | HTTP requests |
+| ssh | Remote connection |
+| scp | Secure file copy |
+| crontab | Schedule tasks |
+| journalctl | Read system logs |
+
+---
+
+## 25. Important Linux Interview Questions
+
+### Q1. What is Linux?
+
+Linux is an open-source, Unix-like operating system based on the Linux kernel.
+
+### Q2. What is the Kernel?
+
+The kernel is the core of the operating system. It manages hardware, memory, processes, devices, and system resources.
+
+### Q3. What is Shell?
+
+A shell is a command interpreter that accepts and executes user commands.
+
+### Q4. What is the difference between Linux and Ubuntu?
+
+Linux is the kernel, while Ubuntu is a Linux distribution built using the Linux kernel and other software.
+
+### Q5. What is the root directory?
+
+The root directory `/` is the starting point of the Linux file system hierarchy.
+
+### Q6. What is the difference between root and sudo?
+
+Root is the superuser account. Sudo allows authorized users to execute commands with elevated privileges.
+
+### Q7. What is a Process?
+
+A process is an instance of a running program.
+
+### Q8. What is a Service?
+
+A service is a background program that provides functionality to the system or other applications.
+
+### Q9. What is the difference between chmod and chown?
+
+chmod changes file permissions, whereas chown changes file ownership.
+
+### Q10. What is SSH?
+
+SSH is a secure protocol used to access and manage remote computers.
+
+### Q11. What is Cron?
+
+Cron is a time-based task scheduler used to execute commands and scripts automatically.
+
+### Q12. What is the difference between Hard Link and Soft Link?
+
+A hard link references the same inode as the original file, while a soft link points to the target's path.
+
+### Q13. What is the difference between df and du?
+
+df displays file system disk usage, while du displays the space used by files and directories.
+
+### Q14. What is the difference between grep and find?
+
+grep searches for text patterns inside files, while find searches for files and directories.
+
+### Q15. Why is Linux important in Big Data?
+
+Linux provides the environment to install, execute, manage, automate, and monitor Big Data technologies such as Hadoop, Hive, Kafka, and Spark.
+
+---
+
+## 26. Practical Linux Exercises
+
+Practice these commands on your Ubuntu virtual machine.
+
+### Exercise 1: Directory Management
+
+1. Create a directory named `DataEngineering`.
+2. Inside it create `Python`, `SQL`, and `Linux`.
+3. Create a file named `notes.txt` inside Linux.
+4. Display the directory structure.
+
+Commands:
+
+```bash
+mkdir -p DataEngineering/{Python,SQL,Linux}
+
+touch DataEngineering/Linux/notes.txt
+
+ls -R DataEngineering
+```
+
+### Exercise 2: File Operations
+
+1. Create `original.txt`.
+2. Add some text.
+3. Copy it to `backup.txt`.
+4. Rename `backup.txt` to `final.txt`.
+5. Display the contents.
+
+### Exercise 3: Permissions
+
+1. Create `script.sh`.
+2. Check its permissions.
+3. Give the owner execute permission.
+4. Check permissions again.
+
+### Exercise 4: Process Management
+
+1. Run `sleep 300` in the background.
+2. Find its PID.
+3. Display its process information.
+4. Stop the process.
+
+### Exercise 5: Log Monitoring
+
+1. Create `application.log`.
+2. Add sample log entries.
+3. Display the last 5 lines.
+4. Search for the word `ERROR`.
+5. Monitor the log continuously.
+
+### Exercise 6: Bash Scripting
+
+Create a script that:
+
+1. Accepts a filename from the user.
+2. Checks whether the file exists.
+3. If it exists, displays its contents.
+4. Otherwise, displays `File not found`.
+
+---
+
+## 27. Quick Revision Notes
+
+### Linux in One Line
+
+- Linux → Open-source operating system kernel.
+- Ubuntu → Linux distribution.
+- Kernel → Core of operating system.
+- Shell → Command interpreter.
+- Bash → Common Linux shell.
+- Terminal → Interface used to enter commands.
+- Root `/` → Starting point of file system.
+- Process → Running program.
+- Service → Background program.
+- SSH → Secure remote connection.
+- SCP → Secure file transfer.
+- Cron → Task scheduling.
+- chmod → Change permissions.
+- chown → Change ownership.
+- grep → Search text.
+- find → Search files.
+- df → Check disk space.
+- du → Check directory size.
+- systemctl → Manage services.
+- journalctl → View system logs.
+
+### Five Most Important Areas for Data Engineers
+
+1. File and Directory Management.
+2. Process and Service Management.
+3. Networking and SSH.
+4. Bash Scripting and Cron Jobs.
+5. Log Monitoring and Troubleshooting.
+
+---
+
+## 28. Final Summary
+
+Linux is an essential skill for Data Engineers.
+
+A Data Engineer uses Linux to manage servers, execute scripts, automate tasks, monitor applications, troubleshoot errors, and operate Big Data tools.
+
+Before moving to advanced Linux, make sure you can independently:
+
+- Navigate the Linux file system.
+- Create, edit, copy, and delete files.
+- Understand permissions.
+- Manage users and groups.
+- Install packages.
+- Start and stop services.
+- Monitor processes.
+- Understand networking commands.
+- Read application logs.
+- Write basic Bash scripts.
+- Schedule automated jobs.
+- Connect to remote servers using SSH.
+
+**Learning Goal:** You should be able to perform common Linux administration tasks from the terminal without depending on a graphical interface.
